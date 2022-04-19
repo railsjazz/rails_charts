@@ -1,1 +1,6 @@
 /* Application styles */
+
+body {
+  padding: 100px;
+  padding-top: 0;
+}
