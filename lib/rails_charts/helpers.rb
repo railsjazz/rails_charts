@@ -3,6 +3,13 @@ require "erb"
 
 module RailsCharts
   module Helpers
+
+    def line_chart_2(data, **options)
+      klass = LineChart.new(data, options)
+      raw klass.js_code
+    end
+
+
     def line_chart(data, **options)
       html_id = "rails_charts_#{rand(1_000)}"
 

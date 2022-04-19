@@ -1,4 +1,7 @@
 RailsCharts.options = {
-  theme: 'red'
+  theme: 'macarons',
+  chart_options: {
+    locale: 'EN'
+  }
  # theme: 'roma'
 }
