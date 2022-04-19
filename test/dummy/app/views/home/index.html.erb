@@ -1,0 +1,14 @@
+<h1 style="text-align: center">Charts</h1>
+
+<% data = [
+  []
+]
+
+%>
+
+<%= line_chart User.group(:age).count, style: "margin: 0 auto", width: '1000px', height: '300px' %>
+
+<br>
+
+<%= line_chart User.group_by_day(:created_at).count, style: "margin: 0 auto", width: '1000px' %>
+
