@@ -33,4 +33,16 @@ class User < ApplicationRecord
     end
   end
 
+  def User.get_funel_sample_data
+    {
+      data: [
+        { value: 60, name: 'Visit' },
+        { value: 40, name: 'Inquiry' },
+        { value: 20, name: 'Order' },
+        { value: 80, name: 'Click' },
+        { value: 100, name: 'Show' }
+      ]
+    }
+  end
+
 end

@@ -8,6 +8,8 @@ require "rails_charts/pie_chart"
 require "rails_charts/donut_chart"
 require "rails_charts/area_chart"
 require "rails_charts/radar_chart"
+require "rails_charts/calendar_chart"
+require "rails_charts/funel_chart"
 require "rails_charts/helpers"
 
 module RailsCharts

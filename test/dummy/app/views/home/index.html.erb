@@ -130,8 +130,8 @@
       other_options: {
         dataZoom: [
           {
-            start: 70,
-            end: 100
+            start: 50,
+            end: 80
           },
         ]
       }
@@ -159,6 +159,30 @@
       code: true
     %>
 
-  </>
+    <br>
+
+    <%= calendar_chart Commit.for_calendar_chart,
+      class: 'box',
+      tooltip: {},
+      code: false
+    %>
+
+    <br>
+
+    <div class="columns">
+      <div class="column is-half">
+        <%= funel_chart User.get_funel_sample_data,
+          class: 'box',
+          height: '400px',
+          tooltip: {},
+          code: false
+        %>
+      </div>
+      <div class="column is-half">
+      </div>
+    </div>
+
+
+  </div>
 </div>
 

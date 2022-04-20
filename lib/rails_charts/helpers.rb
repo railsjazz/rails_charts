@@ -26,6 +26,14 @@ module RailsCharts
 
     def radar_chart(data, options = {})
       generate_rails_chart RadarChart, data, options
+    end  
+    
+    def calendar_chart(data, options = {})
+      generate_rails_chart CalendarChart, data, options
+    end
+
+    def funel_chart(data, options = {})
+      generate_rails_chart FunelChart, data, options
     end    
 
     def generate_rails_chart(klass, data, options = {})

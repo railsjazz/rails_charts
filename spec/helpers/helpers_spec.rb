@@ -48,8 +48,20 @@ describe RailsCharts::Helpers do
 
   describe "radar_chart" do
     it "works" do
-      expect { helper.radar_chart(User.get_data_for_radar_chart, radius: ['50%', '70%'], style: "margin: 0 auto", width: '1000px', height: '300px', theme: 'vintage', smooth: true, x_title: "Age", y_title: "Count") }.not_to raise_error
+      expect { helper.radar_chart(User.get_data_for_radar_chart, style: "margin: 0 auto", width: '1000px', height: '300px', theme: 'vintage', smooth: true, x_title: "Age", y_title: "Count") }.not_to raise_error
+    end
+  end
+
+  describe "calendar_chart" do
+    it "works" do
+      expect { helper.calendar_chart(User.get_data_for_radar_chart) }.not_to raise_error
     end
   end  
+
+  describe "funel_chart" do
+    it "works" do
+      expect { helper.funel_chart(User.get_funel_sample_data) }.not_to raise_error
+    end
+  end 
 
 end
