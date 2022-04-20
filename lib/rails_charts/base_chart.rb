@@ -56,9 +56,9 @@ module RailsCharts
     def build_options
       hash            = {}
       hash[:title]    = title if title
-      hash[:toolbox]  = generate_toolbox_options
+      hash[:toolbox]  = toolbox if toolbox
       hash[:grid]     = grid if grid
-      hash[:tooltip]  = generate_tooltip_options
+      hash[:tooltip]  = tooltip if tooltip
       hash[:legend]   = legend if legend
       hash[:series]   = series
       hash.merge(axises).merge(chart_options)
@@ -88,14 +88,6 @@ module RailsCharts
 
     def y_axis
       generate_y_axis_options.merge(y_axis_options)
-    end
-
-    def generate_toolbox_options
-      toolbox.presence || RailsCharts::Options.toolboxes[:none]
-    end
-
-    def generate_tooltip_options
-      tooltip.presence || RailsCharts::Options.tooltips[:none]
     end
 
     def generate_x_axis_options

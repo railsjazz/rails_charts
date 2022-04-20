@@ -8,7 +8,7 @@
   x_title: "Age",
   y_title: "Count",
   legend: false,
-  tooltip: RailsCharts::Options.tooltips[:axis]
+  tooltip: RailsCharts.tooltips[:axis]
 %>
 
 <br>
@@ -31,7 +31,7 @@
   style: "margin: 0 auto",
   width: '1000px',
   theme: 'infographic',
-  toolbox: RailsCharts::Options.toolboxes[:download_image_zoom]
+  toolbox: RailsCharts.toolboxes[:download_image_zoom]
 %>
 
 
@@ -42,7 +42,7 @@
   style: "margin: 0 auto",
   width: '1000px',
   theme: 'infographic',
-  toolbox: RailsCharts::Options.toolboxes[:download_image_stack_tiled]
+  toolbox: RailsCharts.toolboxes[:download_image_stack_tiled]
 %>
 
 
@@ -53,7 +53,7 @@
   style: "margin: 0 auto",
   width: '1000px',
   theme: 'roma',
-  tooltip: RailsCharts::Options.tooltips[:axis],
+  tooltip: RailsCharts.tooltips[:axis],
   x_axis_options: {
     axisTick: {
       alignWithLabel: true
@@ -67,7 +67,7 @@
   style: "margin: 0 auto",
   width: '1000px',
   theme: 'dark',
-  tooltip: RailsCharts::Options.tooltips[:axis_shadow],
+  tooltip: RailsCharts.tooltips[:axis_shadow],
   series_options: {barWidth: '60%',} %>
 
 <br>
@@ -76,12 +76,12 @@
   style: "margin: 0 auto",
   width: '1000px',
   theme: 'dark',
-  tooltip: RailsCharts::Options.tooltips[:axis_shadow],
+  tooltip: RailsCharts.tooltips[:axis_shadow],
   legend: {
     title: 'World Population'
   },
   vertical: true,
-  toolbox: RailsCharts::Options.toolboxes[:download_image]
+  toolbox: RailsCharts.toolboxes[:download_image]
 %>
 
 <br>
@@ -90,7 +90,7 @@
   radius: '30%',
   class: 'centered',
   legend: { orient: 'vertical', left: 'left' },
-  tooltip: RailsCharts::Options.tooltips[:item], 
+  tooltip: RailsCharts.tooltips[:item], 
   emphasis: { 
     itemStyle: {
       shadowBlur: 10,
@@ -105,7 +105,7 @@
   legend: {
     top: '5%'
   },
-  tooltip: RailsCharts::Options.tooltips[:item], 
+  tooltip: RailsCharts.tooltips[:item], 
   emphasis: { 
     itemStyle: {
       shadowBlur: 10,
@@ -120,7 +120,7 @@
   style: "margin: 0 auto",
   width: '1000px', 
   theme: 'dark', 
-  toolbox: RailsCharts::Options.toolboxes[:download_image_data_zoom],
+  toolbox: RailsCharts.toolboxes[:download_image_data_zoom],
   chart_options: {
     dataZoom: [
       {
@@ -138,7 +138,7 @@
   style: "margin: 0 auto",
   width: '1000px', 
   theme: 'dark',
-  tooltip: RailsCharts::Options.tooltips[:item]
+  tooltip: RailsCharts.tooltips[:item]
 %>
 
 <br>

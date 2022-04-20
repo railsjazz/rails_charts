@@ -13,7 +13,8 @@ describe RailsCharts::Helpers do
     end
 
     it "works multiline" do
-      expect { helper.line_chart(User.distinct.pluck(:role).map{|e| {name: e, data: User.where(role: e).group_by_day(:created_at).count} } , style: "margin: 0 auto", width: '1000px', theme: 'infographic', toolbox: RailsCharts::Options.toolboxes[:download_image_zoom]) }.not_to raise_error
+      data = User.distinct.pluck(:role).map{|e| {name: e, data: User.where(role: e).group_by_day(:created_at).count} }
+      expect { helper.line_chart(data, style: "margin: 0 auto", width: '1000px', theme: 'infographic', toolbox: RailsCharts.toolboxes[:download_image_zoom]) }.not_to raise_error
     end
   end
 

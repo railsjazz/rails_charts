@@ -1,7 +1,7 @@
 module RailsCharts
   module Options
 
-    def Options.toolboxes
+    def toolboxes
       {
         none: nil,
         download_image: {
@@ -41,7 +41,7 @@ module RailsCharts
       }
     end
 
-    def Options.tooltips
+    def tooltips
       {
         none: nil,
         point: {},

@@ -11,8 +11,11 @@ require "rails_charts/radar_chart"
 require "rails_charts/helpers"
 
 module RailsCharts
+  extend Options
+
   class << self
     attr_accessor :options
   end
+
   self.options = {}
 end
