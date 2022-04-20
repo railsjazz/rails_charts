@@ -34,6 +34,10 @@ module RailsCharts
 
     def funnel_chart(data, options = {})
       generate_rails_chart FunnelChart, data, options
+    end
+
+    def gauge_chart(data, options = {})
+      generate_rails_chart GaugeChart, data, options
     end    
 
     def generate_rails_chart(klass, data, options = {})

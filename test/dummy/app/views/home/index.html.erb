@@ -170,7 +170,7 @@
     <br>
 
     <div class="columns">
-      <div class="column is-half">
+      <div class="column is-one-third">
         <%= funnel_chart User.get_funnel_sample_data,
           class: 'box',
           height: '400px',
@@ -182,7 +182,7 @@
           code: false
         %>
       </div>
-      <div class="column is-half">
+      <div class="column is-one-third">
         <%= funnel_chart User.get_funnel_sample_data,
           class: 'box',
           height: '400px',
@@ -198,7 +198,10 @@
           },
           legend: {
             data: ['Show', 'Click', 'Visit', 'Inquiry', 'Order'],
-            bottom: 0
+            bottom: 0,
+            textStyle: {
+              fontSize: '10'
+            }
           },
           tooltip: {
             trigger: 'item',
@@ -207,6 +210,18 @@
           code: false
         %>      
       </div>
+      <div class="column is-one-third">
+        <%= gauge_chart User.get_gauge_sample_data,
+          class: 'box',
+          height: '400px',
+          title: {
+            text: 'Demo',
+            left: 'center'
+          },
+          tooltip: {},
+          code: false
+        %>
+      </div>      
     </div>
 
 

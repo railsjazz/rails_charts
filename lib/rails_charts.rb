@@ -10,6 +10,7 @@ require "rails_charts/area_chart"
 require "rails_charts/radar_chart"
 require "rails_charts/calendar_chart"
 require "rails_charts/funnel_chart"
+require "rails_charts/gauge_chart"
 require "rails_charts/helpers"
 
 module RailsCharts

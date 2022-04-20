@@ -45,4 +45,12 @@ class User < ApplicationRecord
     }
   end
 
+  def User.get_gauge_sample_data
+    {
+      data: [
+        {name: 'Active Users', value: 42}
+      ]
+    }
+  end
+
 end

@@ -64,4 +64,10 @@ describe RailsCharts::Helpers do
     end
   end 
 
+  describe "gauge_chart" do
+    it "works" do
+      expect { helper.funnel_chart(User.get_gauge_sample_data) }.not_to raise_error
+    end
+  end   
+
 end
