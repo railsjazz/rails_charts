@@ -1,5 +1,5 @@
 module RailsCharts
-  class FunelChart < BaseChart
+  class FunnelChart < BaseChart
 
     def initialize(data, options = {})
       super(data, options)

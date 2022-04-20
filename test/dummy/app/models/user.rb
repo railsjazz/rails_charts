@@ -33,7 +33,7 @@ class User < ApplicationRecord
     end
   end
 
-  def User.get_funel_sample_data
+  def User.get_funnel_sample_data
     {
       data: [
         { value: 60, name: 'Visit' },

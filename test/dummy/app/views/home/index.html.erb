@@ -171,14 +171,41 @@
 
     <div class="columns">
       <div class="column is-half">
-        <%= funel_chart User.get_funel_sample_data,
+        <%= funnel_chart User.get_funnel_sample_data,
           class: 'box',
           height: '400px',
+          title: {
+            text: 'Demo',
+            left: 'center'
+          },
           tooltip: {},
           code: false
         %>
       </div>
       <div class="column is-half">
+        <%= funnel_chart User.get_funnel_sample_data,
+          class: 'box',
+          height: '400px',
+          title: {
+            text: 'Funnel'
+          },
+          toolbox: {
+            feature: {
+              dataView: { readOnly: false },
+              restore: {},
+              saveAsImage: {}
+            }
+          },
+          legend: {
+            data: ['Show', 'Click', 'Visit', 'Inquiry', 'Order'],
+            bottom: 0
+          },
+          tooltip: {
+            trigger: 'item',
+            formatter: '{b} : {c}%'
+          },
+          code: false
+        %>      
       </div>
     </div>
 

@@ -32,8 +32,8 @@ module RailsCharts
       generate_rails_chart CalendarChart, data, options
     end
 
-    def funel_chart(data, options = {})
-      generate_rails_chart FunelChart, data, options
+    def funnel_chart(data, options = {})
+      generate_rails_chart FunnelChart, data, options
     end    
 
     def generate_rails_chart(klass, data, options = {})

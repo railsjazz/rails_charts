@@ -58,9 +58,9 @@ describe RailsCharts::Helpers do
     end
   end  
 
-  describe "funel_chart" do
+  describe "funnel_chart" do
     it "works" do
-      expect { helper.funel_chart(User.get_funel_sample_data) }.not_to raise_error
+      expect { helper.funnel_chart(User.get_funnel_sample_data) }.not_to raise_error
     end
   end 
 

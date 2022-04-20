@@ -2,7 +2,7 @@ module RailsCharts
   class BaseChart
     attr_reader :data, :options, :container_id
     attr_reader :width, :height, :style, :klass, :theme, :rails_charts_options, :other_options
-    attr_reader :x_title, :y_title, :toolbox, :tooltip, :legend, :vertical
+    attr_reader :x_title, :y_title, :toolbox, :tooltip, :legend, :vertical, :title
     attr_reader :x_axis_options, :y_axis_options, :series_options, :grid
 
     def initialize(data, options = {})
@@ -15,6 +15,7 @@ module RailsCharts
       @height   = options.delete(:height).presence || '450px'
       @style    = options.delete(:style)
       @theme    = options.delete(:theme).presence || rails_charts_options[:theme] || RailsCharts.options[:theme]
+      @title    = options.delete(:title)
       @x_title  = options.delete(:x_title)
       @y_title  = options.delete(:y_title)
       @vertical = options.delete(:vertical).presence || false
@@ -54,6 +55,7 @@ module RailsCharts
 
     def build_options
       hash            = {}
+      hash[:title]    = title if title
       hash[:toolbox]  = toolbox if toolbox
       hash[:grid]     = grid if grid
       hash[:tooltip]  = tooltip if tooltip
