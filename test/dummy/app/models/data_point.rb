@@ -23,8 +23,8 @@ class DataPoint < ApplicationRecord
   def DataPoint.data_set(n = 1000)
     result = []
     n.times do |e|
-      value = Math.sin(0.01 * Math::PI * (e % n) / Math::PI) * 100000000
-      result << (value / 100000).to_i
+      value = Math.sin(0.005 * Math::PI * (e % n) / Math::PI) * 100000000
+      result << (value / 100000).to_i + rand(n/10)
     end
     result
   end

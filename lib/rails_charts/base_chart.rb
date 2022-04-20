@@ -1,20 +1,20 @@
 module RailsCharts
   class BaseChart
     attr_reader :data, :options, :container_id
-    attr_reader :width, :height, :style, :klass, :theme, :chart_options, :title
+    attr_reader :width, :height, :style, :klass, :theme, :rails_charts_options, :other_options
     attr_reader :x_title, :y_title, :toolbox, :tooltip, :legend, :vertical
-    attr_reader :x_axis_options, :y_axis_options, :series_options, :grid, :legend_options
+    attr_reader :x_axis_options, :y_axis_options, :series_options, :grid
 
     def initialize(data, options = {})
-      @data    = data
-      @options = options
+      @data                 = data
+      @options              = options
+      @rails_charts_options = options.delete(:rails_charts_options).presence || RailsCharts.options
+      @other_options        = options.delete(:other_options).presence || {}
 
-      @chart_options = options.delete(:chart_options) || RailsCharts.options[:chart_options]
-      @width    = options.delete(:width).presence || '640px'
-      @height   = options.delete(:height).presence || '480px'
+      @width    = options.delete(:width).presence || '100%'
+      @height   = options.delete(:height).presence || '450px'
       @style    = options.delete(:style)
-      @theme    = options.delete(:theme).presence || RailsCharts.options[:theme]
-      @title    = options.delete(:title)
+      @theme    = options.delete(:theme).presence || rails_charts_options[:theme] || RailsCharts.options[:theme]
       @x_title  = options.delete(:x_title)
       @y_title  = options.delete(:y_title)
       @vertical = options.delete(:vertical).presence || false
@@ -28,7 +28,6 @@ module RailsCharts
       @x_axis_options = options.delete(:x_axis_options) || {}
       @y_axis_options = options.delete(:y_axis_options) || {}
       @series_options = options.delete(:series_options) || {}
-      @legend_options = options.delete(:legend_options) || {}
 
       @container_id = "rails_charts_#{rand(1_000_000_000)}_#{Time.now.to_i}"
     end
@@ -55,13 +54,12 @@ module RailsCharts
 
     def build_options
       hash            = {}
-      hash[:title]    = title if title
       hash[:toolbox]  = toolbox if toolbox
       hash[:grid]     = grid if grid
       hash[:tooltip]  = tooltip if tooltip
       hash[:legend]   = legend if legend
       hash[:series]   = series
-      hash.merge(axises).merge(chart_options)
+      hash.merge(axises).merge(other_options)
     end
 
     def series

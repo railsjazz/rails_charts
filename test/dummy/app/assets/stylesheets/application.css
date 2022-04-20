@@ -1,12 +1,4 @@
 /* Application styles */
 
 body {
-  padding: 100px;
-  padding-top: 0;
-  background: lightgray;
-}
-
-.centered {
-  width: 1000px;
-  margin: 0 auto;
 }
