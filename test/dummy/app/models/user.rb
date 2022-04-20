@@ -13,4 +13,24 @@
 #  updated_at :datetime         not null
 #
 class User < ApplicationRecord
+
+  def User.get_data_for_radar_chart
+    @get_data_for_radar_chart ||= begin
+      roles = User.distinct.pluck(:role)
+      {
+        indicators: roles.inject({}) {|res, e| res[e] = User.maximum(:salary); res},
+        data: [
+          {
+            name: 'Average Salaries',
+            value: roles.map{|e| User.where(role: e).average(:salary).round(2)}
+          },
+          {
+            name: 'Maximum Salary',
+            value: roles.map{|e| User.where(role: e).maximum(:salary).round(2)}
+          }
+        ],
+      }
+    end
+  end
+
 end

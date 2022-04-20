@@ -2,9 +2,9 @@ require_relative "../rails_helper"
 
 describe RailsCharts::Helpers do
   before do
-    User.create(age: 10, role: 'admin')
-    User.create(age: 20, role: 'moderator')
-    User.create(age: 30, role: 'user')
+    User.create(age: 10, role: 'admin', salary: 100)
+    User.create(age: 20, role: 'moderator', salary: 20)
+    User.create(age: 30, role: 'user', salary: 50)
   end
 
   describe "#line_chart" do
@@ -42,6 +42,12 @@ describe RailsCharts::Helpers do
   describe "donut_chart" do
     it "works" do
       expect { helper.donut_chart(User.group(:age).count, radius: ['50%', '70%'], style: "margin: 0 auto", width: '1000px', height: '300px', theme: 'vintage', smooth: true, x_title: "Age", y_title: "Count") }.not_to raise_error
+    end
+  end
+
+  describe "radar_chart" do
+    it "works" do
+      expect { helper.radar_chart(User.get_data_for_radar_chart, radius: ['50%', '70%'], style: "margin: 0 auto", width: '1000px', height: '300px', theme: 'vintage', smooth: true, x_title: "Age", y_title: "Count") }.not_to raise_error
     end
   end  
 

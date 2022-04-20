@@ -24,10 +24,19 @@ module RailsCharts
       generate_rails_chart AreaChart, data, options
     end
 
+    def radar_chart(data, options = {})
+      generate_rails_chart RadarChart, data, options
+    end    
+
     def generate_rails_chart(klass, data, options = {})
       klass = klass.new(data, options)
-      puts klass.js_code
-      raw klass.js_code
+      if options[:code]
+        tag.textarea(row: 20, cols: 80, style: 'width: 100%; height: 300px') do
+          klass.js_code
+        end
+      else
+        raw klass.js_code
+      end
     end
 
   end

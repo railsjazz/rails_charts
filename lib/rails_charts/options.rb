@@ -17,6 +17,15 @@ module RailsCharts
             saveAsImage: { show: true }
           }
         },
+        download_image_data_zoom: {
+          feature: {
+            dataZoom: {
+              yAxisIndex: 'none'
+            },
+            restore: {},
+            saveAsImage: {}
+          }
+        },
         download_image_zoom: {
           show: true,
           feature: {

@@ -61,7 +61,7 @@ module RailsCharts
         tooltip: generate_tooltip_options,
         legend: generate_legend_options.merge(legend_options),
         series: generate_series_options.is_a?(Hash) ? generate_series_options.merge(series_options) : generate_series_options.map{|e| e.merge(series_options)},
-      }.merge(axises)
+      }.merge(axises).merge(chart_options)
     end
 
     def axises

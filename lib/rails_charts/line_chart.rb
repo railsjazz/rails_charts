@@ -4,8 +4,7 @@ module RailsCharts
 
     def initialize(data, options = {})
       super(data, options)
-
-      @smooth = !!options.delete(:smooth).presence
+      @smooth = options.delete(:smooth)
     end
 
     def type
@@ -27,7 +26,7 @@ module RailsCharts
           data: data.values,
           type: type,
           name: y_title.to_s,
-          smooth: true,
+          smooth: self.smooth,
         }
       end
     end

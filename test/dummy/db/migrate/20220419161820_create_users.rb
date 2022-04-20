@@ -19,7 +19,7 @@ class CreateUsers < ActiveRecord::Migration[7.0]
         name: Faker::Name.name,
         country: Faker::Address.country,
         age: Date.current.year - dob.year,
-        role: ['admin', 'user', 'moderator'].sample,
+        role: ['admin', 'user', 'moderator', 'user', 'moderator', 'user', 'moderator', 'sales', 'manager', 'security'].sample,
         salary: 200 + rand(1_000),
         dob: dob,
         created_at: Time.now - rand(10000).minutes
@@ -33,7 +33,7 @@ class CreateUsers < ActiveRecord::Migration[7.0]
     end
 
     User.where(role: 'admin').find_each do |user|
-      user.salary = user.salary * 1.2
+      user.salary = user.salary * 1.4
       user.age += rand(30)
       user.save
     end
