@@ -1,16 +1,13 @@
 # == Schema Information
 #
-# Table name: users
+# Table name: stats
 #
 #  id         :integer          not null, primary key
-#  name       :string
 #  country    :string
-#  age        :integer
-#  role       :string
-#  salary     :integer
-#  dob        :date
+#  year       :integer
+#  amount     :integer
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
-class User < ApplicationRecord
+class Stat < ApplicationRecord
 end

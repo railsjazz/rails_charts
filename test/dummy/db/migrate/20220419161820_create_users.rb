@@ -26,6 +26,18 @@ class CreateUsers < ActiveRecord::Migration[7.0]
       )
     end
 
+    User.where(role: 'user').find_each do |user|
+      user.salary = user.salary * 0.5
+      user.age = rand(30)
+      user.save
+    end
+
+    User.where(role: 'admin').find_each do |user|
+      user.salary = user.salary * 1.2
+      user.age += rand(30)
+      user.save
+    end
+
     create_table :accounts do |t|
       t.string :name
       t.integer :priority

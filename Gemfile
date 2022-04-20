@@ -14,3 +14,4 @@ gem 'faker'
 gem 'groupdate'
 gem 'puma'
 gem "sprockets-rails"
+gem "annotate"

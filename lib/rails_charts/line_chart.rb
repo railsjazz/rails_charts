@@ -8,42 +8,42 @@ module RailsCharts
       @smooth = options.delete(:smooth).presence || false
     end
 
-    def options
+    def type
+      'line'
+    end
+
+    def chart_series_options
+      if data.is_a?(Array)
+        data.map do |e|
+          {
+            data: e[:data].values,
+            type: type,
+            name: e[:name].to_s,
+            smooth: self.smooth
+          }
+        end
+      else
+        {
+          data: data.values,
+          type: type,
+          name: y_title.to_s,
+          smooth: true,
+        }
+      end
+    end
+
+    def chart_x_axis_options
       {
-        title: {
-          text: self.title
-        },
-        toolbox: {
-          show: true,
-          feature: {
-            dataZoom: {
-              yAxisIndex: 'none'
-            },
-            dataView: { readOnly: false },
-            magicType: { type: ['line', 'bar'] },
-            restore: {},
-            saveAsImage: {}
-          }
-        },
-        tooltip: {
-          trigger: 'axis',
-          axisPointer: {
-            type: 'cross'
-          }
-        },
-        legend: {
-          data: ['Email', "Zona"]
-        },
-        xAxis: {
-          name: 'Age',
-          type: 'category',
-          data: ["2022-04-12","2022-04-13","2022-04-14","2022-04-15","2022-04-16","2022-04-17","2022-04-18","2022-04-19"]
-        },
-        yAxis: {
-          type: 'value',
-          name: 'Salary',
-        },
-        series: [{"data":[14,114,94,99,101,89,83,88],"type":"line","name":"moderator","smooth":true},{"data":[10,97,102,79,99,99,88,79],"type":"line","name":"admin","smooth":true},{"data":[13,98,93,99,98,99,93,72],"type":"line","name":"user","smooth":true}]
+        name: self.x_title,
+        type: 'category',
+        data: x_axis_data(data)
+      }
+    end
+
+    def chart_y_axis_options
+      {
+        type: 'value',
+        name: self.y_title,
       }
     end
   end
