@@ -3,7 +3,7 @@ module RailsCharts
     attr_reader :data, :options, :container_id
     attr_reader :width, :height, :style, :klass, :theme, :chart_options, :title
     attr_reader :x_title, :y_title, :toolbox, :tooltip, :legend, :vertical
-    attr_reader :x_axis_options, :y_axis_options, :series_options, :grid_options, :legend_options
+    attr_reader :x_axis_options, :y_axis_options, :series_options, :grid, :legend_options
 
     def initialize(data, options = {})
       @data    = data
@@ -23,11 +23,11 @@ module RailsCharts
       @toolbox  = options.delete(:toolbox)
       @tooltip  = options.delete(:tooltip)
       @legend   = options.delete(:legend)
+      @grid     = options.delete(:grid)
       
       @x_axis_options = options.delete(:x_axis_options) || {}
       @y_axis_options = options.delete(:y_axis_options) || {}
       @series_options = options.delete(:series_options) || {}
-      @grid_options   = options.delete(:grid_options) || {}
       @legend_options = options.delete(:legend_options) || {}
 
       @container_id = "rails_charts_#{rand(1_000_000_000)}_#{Time.now.to_i}"
@@ -54,14 +54,18 @@ module RailsCharts
     end
 
     def build_options
-      {
-        title: generate_title_options,
-        toolbox: generate_toolbox_options,
-        grid: generate_grid_options.merge(grid_options),
-        tooltip: generate_tooltip_options,
-        legend: generate_legend_options.merge(legend_options),
-        series: generate_series_options.is_a?(Hash) ? generate_series_options.merge(series_options) : generate_series_options.map{|e| e.merge(series_options)},
-      }.merge(axises).merge(chart_options)
+      hash            = {}
+      hash[:title]    = title if title
+      hash[:toolbox]  = generate_toolbox_options
+      hash[:grid]     = grid if grid
+      hash[:tooltip]  = generate_tooltip_options
+      hash[:legend]   = legend if legend
+      hash[:series]   = series
+      hash.merge(axises).merge(chart_options)
+    end
+
+    def series
+      Array.wrap(generate_series_options).map{|e| e.merge(series_options)}
     end
 
     def axises
@@ -86,24 +90,12 @@ module RailsCharts
       generate_y_axis_options.merge(y_axis_options)
     end
 
-    def generate_title_options
-      return {} if self.title.blank?
-
-      {
-        text: self.title
-      }
-    end
-
     def generate_toolbox_options
       toolbox.presence || RailsCharts::Options.toolboxes[:none]
     end
 
     def generate_tooltip_options
       tooltip.presence || RailsCharts::Options.tooltips[:none]
-    end
-
-    def generate_legend_options
-      legend.presence || { data: data.is_a?(Array) ? data.map{|e| e[:name].to_s} : nil }
     end
 
     def generate_x_axis_options
@@ -116,10 +108,6 @@ module RailsCharts
 
     def generate_series_options
       []
-    end
-
-    def generate_grid_options
-      {}
     end
 
     def x_axis_data(data)

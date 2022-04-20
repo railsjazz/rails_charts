@@ -7,6 +7,7 @@
   theme: 'vintage',
   x_title: "Age",
   y_title: "Count",
+  legend: false,
   tooltip: RailsCharts::Options.tooltips[:axis]
 %>
 
@@ -17,7 +18,7 @@
   width: '1000px', 
   height: '200px',
   theme: 'vintage',
-  smooth: true,
+  smooth: false,
   x_title: "Age",
   y_title: "Count" 
 %>
@@ -76,7 +77,9 @@
   width: '1000px',
   theme: 'dark',
   tooltip: RailsCharts::Options.tooltips[:axis_shadow],
-  title: 'World Population',
+  legend: {
+    title: 'World Population'
+  },
   vertical: true,
   toolbox: RailsCharts::Options.toolboxes[:download_image]
 %>
@@ -86,7 +89,7 @@
 <%= pie_chart User.group(:role).count, 
   radius: '30%',
   class: 'centered',
-  legend_options: { orient: 'vertical', left: 'left' },
+  legend: { orient: 'vertical', left: 'left' },
   tooltip: RailsCharts::Options.tooltips[:item], 
   emphasis: { 
     itemStyle: {
@@ -99,7 +102,7 @@
 
 <%= donut_chart User.group(:role).count, 
   class: 'centered',
-  legend_options: {
+  legend: {
     top: '5%'
   },
   tooltip: RailsCharts::Options.tooltips[:item], 
