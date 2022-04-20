@@ -10,6 +10,13 @@ module RailsCharts
             saveAsImage: {}
           }
         },
+        download_image_stack_tiled: {
+          show: true,
+          feature: {
+            magicType: { show: true, type: ['stack', 'tiled', 'bar'] },
+            saveAsImage: { show: true }
+          }
+        },
         download_image_zoom: {
           show: true,
           feature: {
@@ -29,6 +36,9 @@ module RailsCharts
       {
         none: nil,
         point: {},
+        item: {
+          trigger: 'item',
+        },
         axis_cross: {
           trigger: 'axis',
           axisPointer: {

@@ -2,24 +2,24 @@ module RailsCharts
   class LineChart < BaseChart
     attr_reader :smooth
 
-    def initialize(data, options)
+    def initialize(data, options = {})
       super(data, options)
 
-      @smooth = options.delete(:smooth).presence || false
+      @smooth = !!options.delete(:smooth).presence
     end
 
     def type
       'line'
     end
 
-    def chart_series_options
+    def generate_series_options
       if data.is_a?(Array)
         data.map do |e|
           {
             data: e[:data].values,
             type: type,
             name: e[:name].to_s,
-            smooth: self.smooth
+            smooth: self.smooth,
           }
         end
       else
@@ -32,7 +32,7 @@ module RailsCharts
       end
     end
 
-    def chart_x_axis_options
+    def generate_x_axis_options
       {
         name: self.x_title,
         type: 'category',
@@ -40,7 +40,7 @@ module RailsCharts
       }
     end
 
-    def chart_y_axis_options
+    def generate_y_axis_options
       {
         type: 'value',
         name: self.y_title,

@@ -3,10 +3,10 @@ module RailsCharts
     attr_reader :data, :options, :container_id
     attr_reader :width, :height, :style, :klass, :theme, :chart_options, :title
     attr_reader :x_title, :y_title, :toolbox, :tooltip, :legend, :vertical
-    attr_reader :x_axis_options, :y_axis_options, :series_options, :grid_options
+    attr_reader :x_axis_options, :y_axis_options, :series_options, :grid_options, :legend_options
 
-    def initialize(data, options)
-      @data = data
+    def initialize(data, options = {})
+      @data    = data
       @options = options
 
       @chart_options = options.delete(:chart_options) || RailsCharts.options[:chart_options]
@@ -20,16 +20,17 @@ module RailsCharts
       @vertical = options.delete(:vertical).presence || false
       @klass    = options.delete(:class)
 
-      @toolbox = options.delete(:toolbox)
-      @tooltip = options.delete(:tooltip)
-      @legend  = options.delete(:legend)
+      @toolbox  = options.delete(:toolbox)
+      @tooltip  = options.delete(:tooltip)
+      @legend   = options.delete(:legend)
       
       @x_axis_options = options.delete(:x_axis_options) || {}
       @y_axis_options = options.delete(:y_axis_options) || {}
       @series_options = options.delete(:series_options) || {}
       @grid_options   = options.delete(:grid_options) || {}
+      @legend_options = options.delete(:legend_options) || {}
 
-      @container_id = "rails_charts_#{rand(1_000_000)}_#{Time.now.to_i}"
+      @container_id = "rails_charts_#{rand(1_000_000_000)}_#{Time.now.to_i}"
     end
 
     def js_code
@@ -43,29 +44,23 @@ module RailsCharts
     def script_code
       %Q{
         <script>
+          <!-- #{self.class} -->
           var chartDom = document.getElementById('#{container_id}');
           var myChart = echarts.init(chartDom, "#{theme}", { "locale": "EN" });
-          var option = #{options.to_json};
+          var option = #{build_options.to_json};
           option && myChart.setOption(option);
         </script>
       }
     end
 
-    def options
-      # puts '--1--'
-      # puts chart_series_options
-      # puts chart_series_options.class
-      # puts '--2--'
-      # puts series_options
-      # puts series_options.class
-      # puts '--3--'      
+    def build_options
       {
-        title: chart_title_options,
-        toolbox: chart_toolbox_options,
-        grid: chart_grid_options.merge(grid_options),
-        tooltip: chart_tooltip_options,
-        legend: chart_legend_options,
-        series: chart_series_options.is_a?(Hash) ? chart_series_options.merge(series_options) : chart_series_options.map{|e| e.merge(series_options)},
+        title: generate_title_options,
+        toolbox: generate_toolbox_options,
+        grid: generate_grid_options.merge(grid_options),
+        tooltip: generate_tooltip_options,
+        legend: generate_legend_options.merge(legend_options),
+        series: generate_series_options.is_a?(Hash) ? generate_series_options.merge(series_options) : generate_series_options.map{|e| e.merge(series_options)},
       }.merge(axises)
     end
 
@@ -84,14 +79,14 @@ module RailsCharts
     end
 
     def x_axis
-      chart_x_axis_options.merge(x_axis_options)
+      generate_x_axis_options.merge(x_axis_options)
     end
 
     def y_axis
-      chart_y_axis_options.merge(y_axis_options)
+      generate_y_axis_options.merge(y_axis_options)
     end
 
-    def chart_title_options
+    def generate_title_options
       return {} if self.title.blank?
 
       {
@@ -99,33 +94,31 @@ module RailsCharts
       }
     end
 
-    def chart_toolbox_options
+    def generate_toolbox_options
       toolbox.presence || RailsCharts::Options.toolboxes[:none]
     end
 
-    def chart_tooltip_options
+    def generate_tooltip_options
       tooltip.presence || RailsCharts::Options.tooltips[:none]
     end
 
-    def chart_legend_options
-      legend.presence || {
-        data: data.is_a?(Array) ? data.map{|e| e[:name].to_s} : []
-      }
+    def generate_legend_options
+      legend.presence || { data: data.is_a?(Array) ? data.map{|e| e[:name].to_s} : nil }
     end
 
-    def chart_x_axis_options
+    def generate_x_axis_options
       {}
     end
 
-    def chart_y_axis_options
+    def generate_y_axis_options
       {}
     end
 
-    def chart_series_options
+    def generate_series_options
       []
     end
 
-    def chart_grid_options
+    def generate_grid_options
       {}
     end
 

@@ -4,9 +4,18 @@
 
 <br>
 
+<%= area_chart User.group(:age).count, style: "margin: 0 auto", width: '1000px', height: '200px', theme: 'vintage', smooth: true, x_title: "Age", y_title: "Count" %>
+
+<br>
+
 <%= line_chart User.distinct.pluck(:role).map{|e| {name: e, data: User.where(role: e).group_by_day(:created_at).count} } , style: "margin: 0 auto", width: '1000px', theme: 'infographic', toolbox: RailsCharts::Options.toolboxes[:download_image_zoom] %>
 
 <br>
+
+<%= area_chart User.distinct.pluck(:role).map{|e| {name: e, data: User.where(role: e).group_by_day(:created_at).count} } , style: "margin: 0 auto", width: '1000px', theme: 'infographic', toolbox: RailsCharts::Options.toolboxes[:download_image_stack_tiled] %>
+
+<br>
+
 
 <%= bar_chart User.group(:role).sum(:salary), style: "margin: 0 auto", width: '1000px', theme: 'roma', tooltip: RailsCharts::Options.tooltips[:axis], x_axis_options: { axisTick: { alignWithLabel: true }} %>
 
@@ -17,3 +26,33 @@
 <br>
 
 <%= bar_chart Stat.distinct.pluck(:year).map{|e| {name: e, data: Stat.where(year: e).group(:country).sum(:amount)} }, style: "margin: 0 auto", width: '1000px', theme: 'dark', tooltip: RailsCharts::Options.tooltips[:axis_shadow], title: 'World Population', vertical: true, toolbox: RailsCharts::Options.toolboxes[:download_image] %>
+
+<br>
+
+<%= pie_chart User.group(:role).count, 
+  radius: '30%',
+  class: 'centered',
+  legend_options: { orient: 'vertical', left: 'left' },
+  tooltip: RailsCharts::Options.tooltips[:item], 
+  emphasis: { 
+    itemStyle: {
+      shadowBlur: 10,
+      shadowOffsetX: 0,
+      shadowColor: 'rgba(0, 0, 0, 0.5)'
+    } 
+  }
+%>
+
+<%= donut_chart User.group(:role).count, 
+  class: 'centered',
+  legend_options: { top: '5%' },
+  tooltip: RailsCharts::Options.tooltips[:item], 
+  emphasis: { 
+    itemStyle: {
+      shadowBlur: 10,
+      shadowOffsetX: 0,
+      shadowColor: 'rgba(0, 0, 0, 0.5)'
+    } 
+  }
+%>
+

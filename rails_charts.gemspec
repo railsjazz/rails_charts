@@ -24,5 +24,6 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "puma"
   spec.add_development_dependency "sprockets-rails"
   spec.add_development_dependency "annotate"
+  spec.add_development_dependency "rspec-rails"
 
 end

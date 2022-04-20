@@ -1,7 +1,7 @@
 module RailsCharts
   class BarChart < LineChart
     
-    def initialize(data, options)
+    def initialize(data, options = {})
       super(data, options)
     end
 
@@ -9,5 +9,5 @@ module RailsCharts
       'bar'
     end
   
-  end  
+  end
 end
