@@ -38,7 +38,11 @@ module RailsCharts
 
     def gauge_chart(data, options = {})
       generate_rails_chart GaugeChart, data, options
-    end    
+    end
+
+    def custom_chart(options = {})
+      generate_rails_chart CustomChart, [], options
+    end
 
     def generate_rails_chart(klass, data, options = {})
       klass = klass.new(data, options)
@@ -47,7 +51,11 @@ module RailsCharts
           klass.js_code
         end
       else
-        raw klass.js_code
+        tag.pre(debug(data.inspect)) +
+        tag.textarea(row: 20, cols: 80, style: 'width: 100%; height: 300px') do
+          klass.js_code
+        end +
+        raw(klass.js_code)
       end
     end
 

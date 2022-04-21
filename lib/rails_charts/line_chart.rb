@@ -1,10 +1,8 @@
 module RailsCharts
   class LineChart < BaseChart
-    attr_reader :smooth
 
     def initialize(data, options = {})
       super(data, options)
-      @smooth = options.delete(:smooth)
     end
 
     def type
@@ -18,7 +16,6 @@ module RailsCharts
             data: e[:data].values,
             type: type,
             name: e[:name].to_s,
-            smooth: self.smooth,
           }
         end
       else
@@ -26,7 +23,6 @@ module RailsCharts
           data: data.values,
           type: type,
           name: y_title.to_s,
-          smooth: self.smooth,
         }
       end
     end
@@ -45,5 +41,15 @@ module RailsCharts
         name: self.y_title,
       }
     end
+
+    private
+
+    def x_axis_data(data)
+      if data.is_a?(Array)
+        data.map{|e| e[:data].keys}.uniq.flatten
+      else
+        data.keys
+      end
+    end    
   end
 end

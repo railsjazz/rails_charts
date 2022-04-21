@@ -1,4 +1,6 @@
 /* Application styles */
 
 body {
+  padding-bottom: 200px !important;
+  background-color: azure;
 }

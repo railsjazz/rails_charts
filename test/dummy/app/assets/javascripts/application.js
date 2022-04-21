@@ -3,8 +3,13 @@
 //= require rails_charts/theme/dark.js
 //= require rails_charts/theme/roma.js
 //= require rails_charts/theme/red.js
-//= require rails_charts/theme/infographic.js
+//= require rails_charts/theme/jazz.js
+//= require rails_charts/theme/royal.js
+//= require rails_charts/theme/sakura.js
 //= require rails_charts/theme/shine.js
+//= require rails_charts/theme/london.js
+//= require rails_charts/theme/infographic.js
+//= require rails_charts/theme/fruit.js
 //= require rails_charts/theme/macarons.js
 //= require rails_charts/i18n/langES.js
 //= require rails_charts/i18n/langES-obj.js
