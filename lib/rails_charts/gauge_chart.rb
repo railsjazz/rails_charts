@@ -1,10 +1,6 @@
 module RailsCharts
   class GaugeChart < BaseChart
 
-    def initialize(data, options = {})
-      super(data, options)
-    end
-
     def type
       'gauge'
     end

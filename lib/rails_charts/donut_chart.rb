@@ -8,8 +8,7 @@ module RailsCharts
     def generate_series_options
       {
         data: data.map{|k, v| {name: k, value: v} },
-        type: type,
-        emphasis: emphasis
+        type: type
       }
     end
   

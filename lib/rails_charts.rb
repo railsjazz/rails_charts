@@ -15,8 +15,6 @@ require "rails_charts/gauge_chart"
 require "rails_charts/custom_chart"
 require "rails_charts/helpers"
 
-
-
 module RailsCharts
   extend Options
 
@@ -29,10 +27,10 @@ module RailsCharts
 
   self.options = {}
   self.defaults = {
-    RailsCharts::LineChart => {
-
-    },
     RailsCharts::AreaChart => {
+      tooltip: {
+        trigger: 'axis'
+      },      
       xAxis: {
         boundaryGap: false
       },
@@ -40,6 +38,41 @@ module RailsCharts
         areaStyle: {},
         stack: 'Total'
       }
+    },
+    RailsCharts::LineChart => {
+      tooltip: {
+        trigger: 'axis'
+      },
+    },
+    RailsCharts::BarChart => {
+
+    },
+    RailsCharts::CalendarChart => {
+
+    },
+    RailsCharts::CustomChart => {
+
+    },
+    RailsCharts::FunnelChart => {
+
+    },
+    RailsCharts::GaugeChart => {
+
+    },
+    RailsCharts::PieChart => {
+      series: {
+        radius: '70%',
+      },
+      emphasis: {
+        itemStyle: {
+          shadowBlur: 10,
+          shadowOffsetX: 0,
+          shadowColor: 'rgba(0, 0, 0, 0.5)'
+        }
+      }
+    },
+    RailsCharts::RadarChart => {
+
     },
     RailsCharts::DonutChart => {
       series: {

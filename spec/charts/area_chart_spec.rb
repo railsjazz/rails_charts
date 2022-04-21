@@ -9,6 +9,7 @@ describe RailsCharts::AreaChart do
         :series=>[
           {:areaStyle=>{}, :data=>[42, 4242], :name=>"", :stack=>"Total", :type=>"line"}
         ], 
+        :tooltip=>{:trigger=>"axis"},
         :xAxis=>{:data=>[10, 20], :name=>nil, :type=>"category", :boundaryGap=>false},
         :yAxis=>{:name=>nil, :type=>"value"}
       })

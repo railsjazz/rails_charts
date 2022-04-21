@@ -61,8 +61,12 @@ module RailsCharts
         next unless default = defaults[k]
         if v.is_a?(Array) || v.is_a?(Hash)
           hash[k] = v.deep_merge(default)
+        else
+          hash[k] = default
         end
       end
+
+      hash.deep_merge!(defaults.except(*hash.keys))      
       hash
     end
 

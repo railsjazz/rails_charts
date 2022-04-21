@@ -1,10 +1,6 @@
 module RailsCharts
   class FunnelChart < BaseChart
 
-    def initialize(data, options = {})
-      super(data, options)
-    end
-
     def type
       'funnel'
     end

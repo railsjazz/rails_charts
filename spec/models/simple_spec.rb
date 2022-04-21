@@ -1,7 +1,7 @@
 require_relative "../rails_helper"
 
 describe "Charts" do
-  using RailsChartsExt
+  using RailsCharts::Ext
 
   it 'works' do
     c = RailsCharts::LineChart.new({Date.yesterday => 100, Date.current => 200, Date.tomorrow => 300})

@@ -1,12 +1,5 @@
 module RailsCharts
   class RadarChart < BaseChart
-    attr_reader :radar_options
-    
-    def initialize(data, options = {})
-      super(data, options)
-
-      @radar_options = options.delete(:radar_options)
-    end
 
     def type
       'radar'
