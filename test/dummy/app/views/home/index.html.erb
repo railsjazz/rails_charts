@@ -20,6 +20,8 @@
 
     <%= line_chart User.distinct.pluck(:role).map{|e| {name: e, data: User.where(role: e).group_by_day(:created_at).count} },
       class: 'box',
+      debug: true,
+      code: true,
       theme: 'macarons',
       options: {
         toolbox: {
@@ -74,7 +76,6 @@
     %>
 
     <h2 class="subtitle">bar_chart #2</h2>
-
     <%= bar_chart User.group(:role).average(:age),
       class: 'box',
       theme: 'sakura',
@@ -86,7 +87,6 @@
     %>
 
     <h2 class="subtitle">bar_chart #3</h2>
-
     <%= bar_chart Stat.distinct.pluck(:year).map{|e| {name: e, data: Stat.where(year: e).group(:country).sum(:amount)} },
       class: 'box',
       theme: 'dark',
@@ -138,13 +138,22 @@
 
     <h2 class="subtitle">area_chart + zoom #1</h2>
 
-    <%= area_chart DataPoint.pluck(:event_date, :value).to_h,
+    <%#= area_chart DataPoint.limit(20).pluck(:event_date, :value).map{|e| [e[0].to_time.to_i, e[1]]},%>
+    <%# binding.pry %>
+    <%= area_chart DataPoint.limit(300).pluck(:event_date, :value),
       class: 'box',
+      code: false,
       options: {
+        xAxis: {
+          type: 'time'
+        },
+        series: {
+          type: 'line'
+        },        
         dataZoom: [
           {
-            start: 50,
-            end: 80
+            start: 0,
+            end: 50
           },
         ],
         toolbox: {

@@ -4,7 +4,7 @@ module RailsCharts
 
     attr_reader :data, :options, :container_id, :defaults
     attr_reader :width, :height, :style, :klass, :theme, :locale
-    attr_reader :other_options
+    attr_reader :other_options, :debug
     attr_reader :vertical
 
     def initialize(data, options = {})
@@ -21,6 +21,8 @@ module RailsCharts
       @locale        = options.delete(:locale).presence || RailsCharts.options[:locale]
       @klass         = options.delete(:class).presence || RailsCharts.options[:class]
       @style         = options.delete(:style).presence || RailsCharts.options[:style]
+     
+      @debug         = options.delete(:debug)
 
       @vertical      = options.delete(:vertical).presence
     end
