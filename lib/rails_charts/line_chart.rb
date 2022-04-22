@@ -18,14 +18,12 @@ module RailsCharts
         {
           data: data.values,
           type: type,
-          name: y_title.to_s,
         }
       end
     end
 
     def generate_x_axis_options
       {
-        name: self.x_title,
         type: 'category',
         data: x_axis_data(data)
       }
@@ -34,7 +32,6 @@ module RailsCharts
     def generate_y_axis_options
       {
         type: 'value',
-        name: self.y_title,
       }
     end
 

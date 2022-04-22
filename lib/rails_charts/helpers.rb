@@ -51,10 +51,10 @@ module RailsCharts
           klass.js_code
         end
       else
-        #tag.pre(debug(data.inspect)) +
-        tag.textarea(row: 20, cols: 80, style: 'width: 100%; height: 300px') do
-          klass.js_code
-        end +
+        # tag.pre(debug(data.inspect)) +
+        # tag.textarea(row: 20, cols: 80, style: 'width: 100%; height: 300px') do
+        #   klass.js_code
+        # end +
         raw(klass.js_code)
       end
     end
