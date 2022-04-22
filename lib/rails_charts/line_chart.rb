@@ -30,16 +30,17 @@ module RailsCharts
     end    
 
     def generate_series_options
+      binding.pry if debug
       case data[0]
       when Array
         {
-          data: is_a?(AreaChart) ? data : data.map(&:last),
+          data: is_a?(AreaChart) || is_a?(ScatterChart) ? data : data.map(&:last),
           type: type,
         }
       when Hash
         data.map do |e| 
           {
-            data: e[:data].values,
+            data: e[:data].is_a?(Hash) ? e[:data].values : e[:data],
             type: type,
             name: e[:name]
           }

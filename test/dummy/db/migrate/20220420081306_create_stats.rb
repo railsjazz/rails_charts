@@ -10,14 +10,6 @@ class CreateStats < ActiveRecord::Migration[7.0]
       t.timestamps
     end
 
-    ['Brazil', 'Indonesia', 'USA', 'India', 'China', 'Europe'].each do |country|
-      [2022, 2021].each do |year|
-        Stat.create(
-          country: country,
-          year: year,
-          amount: 100 * rand(1000)
-        )
-      end
-    end
+    Stat.populate
   end
 end

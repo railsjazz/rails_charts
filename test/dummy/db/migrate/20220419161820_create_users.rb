@@ -45,14 +45,7 @@ class CreateUsers < ActiveRecord::Migration[7.0]
       t.timestamps
     end
 
-    2000.times do
-      dob = Date.current - rand(100).years - rand(400).days
-      user = Account.create(
-        name: Faker::Name.name,
-        priority: rand(100),
-        created_at: Time.now - rand(10000).minutes
-      )
-    end    
+    Account.populate
   end
 
   def down

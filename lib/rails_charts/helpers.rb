@@ -12,9 +12,17 @@ module RailsCharts
       generate_rails_chart BarChart, data, options
     end
 
+    def stacked_bar_chart(data, options = {})
+      generate_rails_chart StackedBarChart, data, options
+    end    
+
     def pie_chart(data, options = {})
       generate_rails_chart PieChart, data, options
     end
+
+    def scatter_chart(data, options = {})
+      generate_rails_chart ScatterChart, data, options
+    end    
 
     def donut_chart(data, options = {})
       generate_rails_chart DonutChart, data, options
