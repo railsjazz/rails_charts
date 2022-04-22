@@ -22,14 +22,14 @@ module RailsCharts
       end
     end
 
-    def generate_x_axis_options
+    def x_axis
       {
         type: 'category',
         data: x_axis_data(data)
       }
     end
 
-    def generate_y_axis_options
+    def y_axis
       {
         type: 'value',
       }

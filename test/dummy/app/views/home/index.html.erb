@@ -78,7 +78,11 @@
     <%= bar_chart User.group(:role).average(:age),
       class: 'box',
       theme: 'sakura',
-      series_options: { barWidth: '20%', } 
+      options: {
+        series: { 
+          barWidth: '20%'
+        }
+      }
     %>
 
     <h2 class="subtitle">bar_chart #3</h2>
@@ -86,11 +90,11 @@
     <%= bar_chart Stat.distinct.pluck(:year).map{|e| {name: e, data: Stat.where(year: e).group(:country).sum(:amount)} },
       class: 'box',
       theme: 'dark',
-      legend: {
-        title: 'World Population'
-      },
       vertical: true,
       options: {
+        legend: {
+          title: 'World Population'
+        },
         toolbox: {
           feature: {
             saveAsImage: {}
@@ -107,22 +111,26 @@
         <%= pie_chart User.group(:role).count, 
           radius: '70%',
           class: 'box',
-          legend: { orient: 'vertical', left: 'left' }
+          options: {
+            legend: { orient: 'vertical', left: 'left' }
+          }
         %>
       </div>
       <div class="column is-half">
         <h2 class="subtitle">donut_chart #1</h2>
         <%= donut_chart User.group(:role).count, 
           class: 'box',
-          legend: {
-            bottom: '0'
-          },
-          emphasis: { 
-            itemStyle: {
-              shadowBlur: 10,
-              shadowOffsetX: 0,
-              shadowColor: 'rgba(0, 0, 0, 0.5)'
-            } 
+          options: {
+            legend: {
+              bottom: '0'
+            },
+            emphasis: { 
+              itemStyle: {
+                shadowBlur: 10,
+                shadowOffsetX: 0,
+                shadowColor: 'rgba(0, 0, 0, 0.5)'
+              } 
+            }
           }
         %>
       </div>
@@ -158,10 +166,12 @@
 
     <%= radar_chart User.get_data_for_radar_chart,
       class: 'box',
-      legend: {
-        data: ['Average Salaries', 'Maximum Salary'],
-        orient: 'vertical',
-        left: '20%'
+      options: {
+        legend: {
+          data: ['Average Salaries', 'Maximum Salary'],
+          orient: 'vertical',
+          left: '20%'
+        }
       }
     %>
 
@@ -203,19 +213,19 @@
             title: {
               text: 'Funnel'
             },
-          },
-          toolbox: {
-            feature: {
-              dataView: { readOnly: false },
-              restore: {},
-              saveAsImage: {}
-            }
-          },
-          legend: {
-            data: ['Show', 'Click', 'Visit', 'Inquiry', 'Order'],
-            top: 30,
-            textStyle: {
-              fontSize: '10'
+            toolbox: {
+              feature: {
+                dataView: { readOnly: false },
+                restore: {},
+                saveAsImage: {}
+              }
+            },
+            legend: {
+              data: ['Show', 'Click', 'Visit', 'Inquiry', 'Order'],
+              top: 30,
+              textStyle: {
+                fontSize: '10'
+              }
             }
           }
         %>      

@@ -4,8 +4,7 @@ module RailsCharts
 
     attr_reader :data, :options, :container_id
     attr_reader :width, :height, :style, :klass, :theme, :rails_charts_options, :other_options
-    attr_reader :legend, :vertical
-    attr_reader :series_options
+    attr_reader :vertical
 
     def initialize(data, options = {})
       @data                 = data
@@ -19,10 +18,6 @@ module RailsCharts
       @theme    = options.delete(:theme).presence || rails_charts_options[:theme] || RailsCharts.options[:theme]
       @vertical = options.delete(:vertical).presence || false
       @klass    = options.delete(:class)
-
-      @legend   = options.delete(:legend)
-      
-      @series_options = options.delete(:series_options) || {}
 
       @container_id = "rails_charts_#{Digest::SHA1.hexdigest([Time.now, rand].join)}"
     end
@@ -43,18 +38,14 @@ module RailsCharts
 
     def build_options
       hash = {}
-      hash[:legend]   = legend if legend
-      hash[:series]   = series
+
+      hash[:series] = Array.wrap(generate_series_options)
 
       hash = hash.complex_merge(axises)
       hash = hash.complex_merge(defaults)
       hash = hash.complex_merge(other_options)
 
       hash
-    end
-
-    def series
-      Array.wrap(generate_series_options).map {|e| e.merge(series_options)}
     end
 
     def axises
@@ -72,22 +63,10 @@ module RailsCharts
     end
 
     def x_axis
-      generate_x_axis_options
+      []
     end
 
     def y_axis
-      generate_y_axis_options
-    end
-
-    def generate_x_axis_options
-      {}
-    end
-
-    def generate_y_axis_options
-      {}
-    end
-
-    def generate_series_options
       []
     end
 
