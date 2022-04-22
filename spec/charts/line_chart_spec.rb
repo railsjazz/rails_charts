@@ -12,7 +12,7 @@ describe RailsCharts::LineChart do
   describe "#line_chart 1 hash" do
     it "build_options" do
       data = {10 => 42, 20 => 4242}
-      chart = RailsCharts::LineChart.new(data, {debug: true, options: { title: { text: "Hello" } }})
+      chart = RailsCharts::LineChart.new(data, {debug: false, options: { title: { text: "Hello" } }})
       expect(chart.build_options).to eq({
         :series=>[
           {:data=>[42, 4242], :type=>"line"}
@@ -20,7 +20,7 @@ describe RailsCharts::LineChart do
         title: { text: "Hello" },
         :toolbox => {:feature=>{:saveAsImage=>{}}},
         :tooltip=>{:trigger=>"axis"},
-        :xAxis=>{:data=>[10, 20], :type=>"category"},
+        :xAxis=>{data: [10, 20], :type=>"category"},
         :yAxis=>{:type=>"value"}
       })
     end
@@ -39,8 +39,8 @@ describe RailsCharts::LineChart do
         :toolbox=>{:feature=>{:saveAsImage=>{}}},
         :tooltip=>{:trigger=>"axis"},
         :xAxis=>{
-          :data=>[Date.yesterday, Date.current],
-          :type=>"category"
+          data: [Date.yesterday, Date.today],
+          type: "category"
         },
         :yAxis=>{:type=>"value"}
       })

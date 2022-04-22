@@ -21,5 +21,11 @@ module RailsCharts
       }
     end
 
+    def x_axis
+      {
+        type: 'category'
+      }
+    end    
+
   end
 end

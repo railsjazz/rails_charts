@@ -5,10 +5,6 @@ module RailsCharts
   module Helpers
 
     def line_chart(data, options = {})
-      puts "="*40
-      puts data.to_a.take(10).inspect
-      puts "="*40
-
       generate_rails_chart LineChart, data, options
     end
 
@@ -25,10 +21,6 @@ module RailsCharts
     end
 
     def area_chart(data, options = {})
-      puts "="*40
-      puts data.to_a.take(10).inspect
-      puts "="*40
-
       generate_rails_chart AreaChart, data, options
     end
 

@@ -11,11 +11,11 @@ describe RailsCharts::AreaChart do
       chart = RailsCharts::AreaChart.new({10 => 42, 20 => 4242})
       expect(chart.build_options).to eq({
         :series=>[
-          {:areaStyle=>{}, :data=>[42, 4242], :stack=>"Total", :type=>"line"}
+          {:areaStyle=>{}, :data=>[[10,42], [20,4242]], :stack=>"Total", :type=>"line"}
         ], 
         :tooltip=>{:trigger=>"axis"},
         :toolbox => {:feature=>{:saveAsImage=>{}}},
-        :xAxis=>{:data=>[10, 20], :type=>"category", :boundaryGap=>false},
+        :xAxis=>{:type=>"category", :boundaryGap=>false},
         :yAxis=>{:type=>"value"}
       })
     end
@@ -37,18 +37,13 @@ describe RailsCharts::AreaChart do
           }
         }
       })
-
-    #  expect(chart.x).to eq([Date.yesterday, Date.today])
-     # expect(chart.y).to eq([1,2,1])
-      expect(chart.build_options[:series]).to eq([{:areaStyle=>{}, :data=>[1, 2, 3], :stack=>"Total", :type=>"time"}])
-
       expect(chart.build_options).to eq({
         :series=>[
-          {:areaStyle=>{}, :data=>[1, 2, 3], :stack=>"Total", :type=>"time"}
+          {:areaStyle=>{}, :data=>[[Date.yesterday, 1], [Date.current, 2], [Date.tomorrow, 3]], :stack=>"Total", :type=>"time"}
         ], 
         :tooltip=>{:trigger=>"axis"},
         :toolbox => {:feature=>{:saveAsImage=>{}}},
-        :xAxis=>{:data=>[Date.yesterday, Date.today, Date.tomorrow], :type=>"time", :boundaryGap=>false},
+        :xAxis=>{:type=>"time", :boundaryGap=>false},
         :yAxis=>{:type=>"value"}
       })
     end

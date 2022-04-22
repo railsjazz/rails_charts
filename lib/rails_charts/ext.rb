@@ -11,7 +11,6 @@ module RailsCharts
     refine ::Hash do
       def complex_merge(other)
         self.each do |k, v|
-        #  binding.pry
           next unless default = other[k]
           if v.is_a?(Array) || v.is_a?(Hash)
             self[k] = v.deep_merge(default)
