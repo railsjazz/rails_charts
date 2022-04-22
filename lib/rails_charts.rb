@@ -18,121 +18,20 @@ module RailsCharts
   using Ext
 
   class << self
-    attr_accessor :options
-    attr_accessor :defaults
+    attr_accessor :options, :defaults
   end
 
-  self.options = {}
+  self.options = {
+    theme: nil,
+    width: "100%",
+    height: "450px",
+    css_klass: "rails_charts",
+    style: nil
+  }
+
   self.defaults = {
-    RailsCharts::AreaChart => {
-      tooltip: {
-        trigger: 'axis'
-      },      
-      xAxis: {
-        boundaryGap: false
-      },
-      series: {
-        areaStyle: {},
-        stack: 'Total'
-      },
-      toolbox: {
-        feature: {
-          saveAsImage: {}
-        },
-      }
-    },
-
-    RailsCharts::LineChart => {
-      tooltip: {
-        trigger: 'axis'
-      },
-      toolbox: {
-        feature: {
-          saveAsImage: {}
-        },
-      }
-    },
-
-    RailsCharts::BarChart => {
-      tooltip: {
-        trigger: 'axis',
-        axisPointer: {
-          type: 'shadow'
-        }        
-      },
-      toolbox: {
-        feature: {
-          saveAsImage: {}
-        },
-      }     
-    },
-
-    RailsCharts::CalendarChart => {
-      tooltip: {
-        item: {
-          trigger: 'item',
-        },
-      },
-    },
-
-    RailsCharts::FunnelChart => {
-      tooltip: {
-        item: {
-          trigger: 'item',
-        },
-      },
-    },
-
-    RailsCharts::GaugeChart => {
-      tooltip: {
-        item: {
-          trigger: 'item',
-        },
-      },
-    },
-
-    RailsCharts::PieChart => {
-      tooltip: {
-        item: {
-          trigger: 'item',
-        },      
-      },
-      series: {
-        radius: '70%',
-      },
-      emphasis: {
-        itemStyle: {
-          shadowBlur: 10,
-          shadowOffsetX: 0,
-          shadowColor: 'rgba(0, 0, 0, 0.5)'
-        }
-      }
-    },
-
-    RailsCharts::RadarChart => {
-      tooltip: {
-        item: {
-          trigger: 'item',
-        },
-      },
-    },
-
-    RailsCharts::DonutChart => {
-      tooltip: {
-        item: {
-          trigger: 'item',
-        },
-      }, 
-      series: {
-        radius: ['40%', '70%']
-      },
-      emphasis: {
-        itemStyle: {
-          shadowBlur: 10,
-          shadowOffsetX: 0,
-          shadowColor: 'rgba(0, 0, 0, 0.5)'
-        }
-      } 
-    }
+    # RailsCharts::DonutChart => {
+    #   ...
+    # }
   }
 end

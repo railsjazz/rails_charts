@@ -23,6 +23,16 @@ module RailsCharts
         data: data[:data]
       }
     end
+
+    def defaults
+      {
+        tooltip: {
+          item: {
+            trigger: 'item',
+          },
+        },
+      }
+    end
   
   end  
 end

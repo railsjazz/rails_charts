@@ -15,6 +15,16 @@ module RailsCharts
         type: type,
       }
     end
+
+    def defaults
+      {
+        tooltip: {
+          item: {
+            trigger: 'item',
+          },
+        },
+      }
+    end
   
   end  
 end

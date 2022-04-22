@@ -2,33 +2,41 @@ module RailsCharts
   class BaseChart
     using Ext
 
-    attr_reader :data, :options, :container_id
-    attr_reader :width, :height, :style, :klass, :theme, :rails_charts_options, :other_options
+    attr_reader :data, :options, :container_id, :defaults
+    attr_reader :width, :height, :style, :klass, :theme, :locale
+    attr_reader :other_options
     attr_reader :vertical
 
     def initialize(data, options = {})
-      @data                 = data
-      @options              = options
-      @rails_charts_options = options.delete(:rails_charts_options).presence || RailsCharts.options
-      @other_options        = options.delete(:options).presence || {}
+      @data          = data
+      @options       = options
+      @other_options = options.delete(:options).presence || {}
+      @defaults      = RailsCharts.defaults[self.class].presence || {}
 
-      @width    = options.delete(:width).presence || '100%'
-      @height   = options.delete(:height).presence || '450px'
-      @style    = options.delete(:style)
-      @theme    = options.delete(:theme).presence || rails_charts_options[:theme] || RailsCharts.options[:theme]
-      @vertical = options.delete(:vertical).presence || false
-      @klass    = options.delete(:class)
+      @container_id  = options.delete(:id).presence || "rails_charts_#{Digest::SHA1.hexdigest([Time.now, rand].join)}"
 
-      @container_id = "rails_charts_#{Digest::SHA1.hexdigest([Time.now, rand].join)}"
+      @width         = options.delete(:width).presence || RailsCharts.options[:width]
+      @height        = options.delete(:height).presence || RailsCharts.options[:height]
+      @theme         = options.delete(:theme).presence || RailsCharts.options[:theme]
+      @locale        = options.delete(:locale).presence || RailsCharts.options[:locale]
+      @klass         = options.delete(:class).presence || RailsCharts.options[:class]
+      @style         = options.delete(:style).presence || RailsCharts.options[:style]
+
+      @vertical      = options.delete(:vertical).presence
     end
 
     def js_code
+      style_css = []
+      style_css << "width: #{width}" if width
+      style_css << "height: #{height}" if height
+      style_css << style
+
       %Q{
-        <div id="#{container_id}" class="#{klass}" style="width: #{width}; height: #{height}; #{style}">
+        <div id="#{container_id}" class="#{klass}" style="#{style_css.compact.join('; ')}">
           <script>
             <!-- #{self.class} -->
             var chartDom = document.getElementById('#{container_id}');
-            var myChart = echarts.init(chartDom, "#{theme}", { "locale": "EN" });
+            var myChart = echarts.init(chartDom, #{theme.to_json}, { "locale": #{locale.to_json} });
             var option = #{build_options.to_json};
             option && myChart.setOption(option);
           </script>
@@ -69,10 +77,6 @@ module RailsCharts
     def y_axis
       []
     end
-
-    def defaults
-      @defaults ||= RailsCharts.defaults[self.class].presence || {}
-    end    
 
   end
 end

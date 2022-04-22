@@ -1,4 +1,3 @@
-RailsCharts.options = {
-  locale: 'EN',
-  theme: nil
-}
+# RailsCharts.options = {
+#   theme: nil
+# }

@@ -35,6 +35,19 @@ module RailsCharts
       }
     end
 
+    def defaults
+      {
+        tooltip: {
+          trigger: 'axis'
+        },
+        toolbox: {
+          feature: {
+            saveAsImage: {}
+          },
+        }
+      }
+    end
+
     private
 
     def x_axis_data(data)
