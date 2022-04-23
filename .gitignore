@@ -10,3 +10,5 @@
 /test/dummy/tmp/
 
 *.gem
+
+coverage/*

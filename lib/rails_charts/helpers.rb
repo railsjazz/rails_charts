@@ -22,10 +22,18 @@ module RailsCharts
 
     def scatter_chart(data, options = {})
       generate_rails_chart ScatterChart, data, options
+    end
+
+    def parallel_chart(data, options = {})
+      generate_rails_chart ParallelChart, data, options
     end    
 
     def donut_chart(data, options = {})
       generate_rails_chart DonutChart, data, options
+    end
+
+    def sankey_chart(data, options = {})
+      generate_rails_chart SankeyChart, data, options
     end
 
     def area_chart(data, options = {})

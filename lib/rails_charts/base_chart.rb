@@ -1,6 +1,6 @@
 module RailsCharts
   class BaseChart
-    using Ext
+    using RubyExt
 
     attr_reader :data, :options, :container_id, :defaults
     attr_reader :width, :height, :style, :klass, :theme, :locale

@@ -293,7 +293,7 @@
             },
             legend: {
               data: ['Show', 'Click', 'Visit', 'Inquiry', 'Order'],
-              top: 30,
+              bottom: 5,
               textStyle: {
                 fontSize: '10'
               }
@@ -317,10 +317,90 @@
     </div>
 
     <h2 class="subtitle">custom_chart #1</h2>
-
     <div class="box">
       <%= custom_chart User.custom_gause_data %>
     </div>
+
+    <h2 class="subtitle">parallel_chart #1</h2>
+    <div class="box">
+      <%= parallel_chart [
+        [1, 2, 1, "Ruby"],
+        [2, 3, 2, "JavaScript"],
+        [3, 1, 3, "C#"]
+      ], {
+        options: {
+          parallelAxis: [
+            { dim: 0, name: '2019', inverse: true, minInterval: 1, min: 1, nameTextStyle: { fontSize: 16 }, axisLabel: { fontSize: 16 } },
+            { dim: 1, name: '2020', inverse: true, minInterval: 1, min: 1, nameTextStyle: { fontSize: 16 }, axisLabel: { fontSize: 16 } },
+            { dim: 2, name: '2021', inverse: true, minInterval: 1, min: 1, nameTextStyle: { fontSize: 16 }, axisLabel: { fontSize: 16 } },
+            { dim: 3, type: "category", name: 'Language', data: ["Ruby", "JavaScript", "C#"], inverse: true, nameTextStyle: { fontSize: 16 }, axisLabel: { fontSize: 14 } },
+          ]
+        }
+      }
+      %>
+    </div>
+
+    <h2 class="subtitle">sankey_chart #1</h2>
+    <div class="box">
+      <%= sankey_chart({
+        data: [
+          {name: 'Ruby'}, {name: 'HTML'}, {name: 'JS'}, {name: 'Good'}, {name: 'Bad'}, {name: 'CSS'}, {name: 'PHP'}, {name: 'Frontend'}, {name: 'Backend'}
+        ],
+        links: [
+          {
+            source: 'Ruby',
+            target: 'Good',
+            value: 1
+          },
+          {
+            source: 'HTML',
+            target: 'Good',
+            value: 1
+          },  
+          {
+            source: 'JS',
+            target: 'Good',
+            value: 1
+          },  
+          {
+            source: 'CSS',
+            target: 'Good',
+            value: 1
+          },
+          {
+            source: 'PHP',
+            target: 'Bad',
+            value: 1
+          },
+          {
+            source: 'Good',
+            target: 'Backend',
+            value: 1
+          },         
+          {
+            source: 'Good',
+            target: 'Frontend',
+            value: 3
+          },
+          {
+            source: 'Bad',
+            target: 'Backend',
+            value: 1
+          },             
+        ]
+      }, {
+        options: {
+          # tooltip: {
+          #   trigger: 'item'
+          # },
+          # series: {
+          #   orient: 'vertical',
+          # }
+        }
+      })
+      %>
+    </div>    
+
 
   </div>
 </div>

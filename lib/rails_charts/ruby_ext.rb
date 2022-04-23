@@ -1,6 +1,6 @@
 module RailsCharts
 
-  module Ext
+  module RubyExt
 
     refine ::Array do
       def deep_merge(other)

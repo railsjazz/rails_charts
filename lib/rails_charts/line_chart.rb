@@ -27,10 +27,10 @@ module RailsCharts
       when Hash
         data.map{|e| e[:name]}
       end
-    end    
+    end
 
     def generate_series_options
-      binding.pry if debug
+      # binding.pry if debug
       case data[0]
       when Array
         {

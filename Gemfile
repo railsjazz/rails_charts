@@ -15,3 +15,4 @@ gem 'groupdate'
 gem 'puma'
 gem "sprockets-rails"
 gem "annotate"
+gem "simplecov", group: :test
