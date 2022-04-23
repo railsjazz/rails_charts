@@ -1,0 +1,41 @@
+<div class="columns">
+  <div class="column is-half">
+    <h2 class="subtitle">funnel_chart #1</h2>
+    <%= funnel_chart User.get_funnel_sample_data,
+      class: 'box',
+      height: '400px',
+      options: {
+        title: {
+          text: 'Demo',
+          left: 'center'
+        }
+      }
+    %>
+  </div>
+  <div class="column is-half">
+    <h2 class="subtitle">funnel_chart #2</h2>
+    <%= funnel_chart User.get_funnel_sample_data,
+      class: 'box',
+      height: '400px',
+      options: {
+        title: {
+          text: 'Funnel'
+        },
+        toolbox: {
+          feature: {
+            dataView: { readOnly: false },
+            restore: {},
+            saveAsImage: {}
+          }
+        },
+        legend: {
+          data: ['Show', 'Click', 'Visit', 'Inquiry', 'Order'],
+          bottom: 5,
+          textStyle: {
+            fontSize: '10'
+          }
+        }
+      }
+    %>      
+  </div>
+</div>

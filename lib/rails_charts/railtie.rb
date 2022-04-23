@@ -22,13 +22,5 @@ module RailsCharts
       end      
     end
 
-    initializer :run_prepare_callbacks do |app|
-      #puts 1111
-      app.reloader.prepare!
-    end
-
-    config.to_prepare do
-     # puts 22222
-    end
   end
 end

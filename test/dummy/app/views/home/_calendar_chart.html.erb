@@ -1,0 +1,16 @@
+<h2 class="subtitle">calendar_chart #1</h2>
+<%= calendar_chart Commit.for_calendar_chart,
+  class: 'box',
+  code: false,
+  options: {
+      visualMap: {
+      show: true,
+      min: 0,
+      max: 40,
+      orient: 'horizontal'
+    },
+    calendar: [{
+      range: '2021',
+    },]
+  }
+%>

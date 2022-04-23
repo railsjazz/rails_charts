@@ -1,0 +1,60 @@
+<h2 class="subtitle">sankey_chart #1</h2>
+<div class="box">
+  <%= sankey_chart({
+    data: [
+      {name: 'Ruby'}, {name: 'HTML'}, {name: 'JS'}, {name: 'Good'}, {name: 'Bad'}, {name: 'CSS'}, {name: 'PHP'}, {name: 'Frontend'}, {name: 'Backend'}
+    ],
+    links: [
+      {
+        source: 'Ruby',
+        target: 'Good',
+        value: 1
+      },
+      {
+        source: 'HTML',
+        target: 'Good',
+        value: 1
+      },  
+      {
+        source: 'JS',
+        target: 'Good',
+        value: 1
+      },  
+      {
+        source: 'CSS',
+        target: 'Good',
+        value: 1
+      },
+      {
+        source: 'PHP',
+        target: 'Bad',
+        value: 1
+      },
+      {
+        source: 'Good',
+        target: 'Backend',
+        value: 1
+      },         
+      {
+        source: 'Good',
+        target: 'Frontend',
+        value: 3
+      },
+      {
+        source: 'Bad',
+        target: 'Backend',
+        value: 1
+      },             
+    ]
+  }, {
+    options: {
+      # tooltip: {
+      #   trigger: 'item'
+      # },
+      # series: {
+      #   orient: 'vertical',
+      # }
+    }
+  })
+  %>
+</div>

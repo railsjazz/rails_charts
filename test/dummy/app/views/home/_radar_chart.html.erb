@@ -1,0 +1,18 @@
+<h2 class="subtitle">radar_chart #1</h2>
+<%= radar_chart User.get_data_for_radar_chart,
+  class: 'box',
+  options: {
+    legend: {
+      data: ['Average Salaries', 'Maximum Salary'],
+      orient: 'vertical',
+      left: '20%'
+    }
+  }
+%>
+
+<h2 class="subtitle">radar_chart + code: true</h2>
+<%= radar_chart User.get_data_for_radar_chart,
+  class: 'box',
+  theme: 'dark',
+  code: true
+%>

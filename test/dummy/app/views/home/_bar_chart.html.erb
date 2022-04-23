@@ -1,0 +1,49 @@
+<h2 class="subtitle">bar_chart #1</h2>
+<%= bar_chart User.group(:role).sum(:salary),
+  class: 'box',
+  theme: 'roma',
+  xAxis: {
+    axisTick: {
+      alignWithLabel: true
+    }
+  }
+%>
+
+<h2 class="subtitle">bar_chart #2</h2>
+<%= bar_chart User.group(:role).average(:age),
+  class: 'box',
+  theme: 'sakura',
+  options: {
+    series: { 
+      barWidth: '50%'
+    }
+  }
+%>
+
+<h2 class="subtitle">bar_chart #3</h2>
+<%= bar_chart Stat.distinct.pluck(:year).map{|e| {name: e, data: Stat.where(year: e).group(:country).sum(:amount)} },
+  class: 'box',
+  theme: 'dark',
+  vertical: true,
+  options: {
+    grid: {
+      top: '15%',
+      left: '15%',
+      right: '15%'
+    },
+    title: {
+      text: 'World Population',
+      left: 'center',
+      top: '5%'
+    },
+    legend: {
+      bottom: '2%'
+    },
+    toolbox: {
+      feature: {
+        saveAsImage: {},
+        magicType: { type: ['stack', 'bar'] },
+      },
+    }
+  }
+%>

@@ -1,0 +1,30 @@
+<div class="columns">
+  <div class="column is-half">
+    <h2 class="subtitle">pie_chart #1</h2>
+    <%= pie_chart User.group(:role).count, 
+      radius: '70%',
+      class: 'box',
+      options: {
+        legend: { orient: 'vertical', left: 'left' }
+      }
+    %>
+  </div>
+  <div class="column is-half">
+    <h2 class="subtitle">donut_chart #1</h2>
+    <%= donut_chart User.group(:role).count, 
+      class: 'box',
+      options: {
+        legend: {
+          bottom: '0'
+        },
+        emphasis: { 
+          itemStyle: {
+            shadowBlur: 10,
+            shadowOffsetX: 0,
+            shadowColor: 'rgba(0, 0, 0, 0.5)'
+          } 
+        }
+      }
+    %>
+  </div>
+</div>

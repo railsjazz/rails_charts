@@ -1,0 +1,16 @@
+<h2 class="subtitle">stacked_bar_chart #1</h2>
+<%= stacked_bar_chart [
+    { name: 'high priority', data: Account.high_priority.group_by_month(:created_at, format: "%b %Y").count },
+    { name: 'low priority', data: Account.low_priority.group_by_month(:created_at, format: "%b %Y").count }
+  ],
+  {
+    options: {
+      title: {
+        text: "Popular vs Unpopular"
+      },
+    },
+    code: false,
+    class: 'box',
+    vertical: true
+  }
+%>

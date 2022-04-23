@@ -1,0 +1,11 @@
+<h2 class="subtitle">gauge_chart #1</h2>
+<%= gauge_chart User.get_gauge_sample_data,
+  class: 'box',
+  height: '400px',
+  options: {
+    title: {
+      text: 'Demo',
+      left: 'center'
+    }
+  }
+%>

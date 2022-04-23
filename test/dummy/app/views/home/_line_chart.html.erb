@@ -1,0 +1,32 @@
+<h2 class="subtitle">line_chart #1</h2>
+
+<%= line_chart User.group(:age).count, class: 'box', options: {
+  title: {
+    text: "People count by age",
+    left: 'center'
+  }
+} %>
+
+<h2 class="subtitle">line_chart #2</h2>
+
+<%= line_chart User.distinct.pluck(:role).map{|e| {name: e, data: User.where(role: e).group_by_day(:created_at).count} },
+  class: 'box',
+  debug: false,
+  code: false,
+  theme: 'macarons',
+  options: {
+    title: {
+      text: "Signups by role"
+    },
+    toolbox: {
+      show: true,
+      feature: {
+        saveAsImage: {}
+      }
+    },
+    label: {
+      show: true,
+      position: 'top'
+    },
+  }
+%>

@@ -1,0 +1,58 @@
+<h2 class="subtitle">area_chart #1</h2>
+<%= area_chart User.group(:age).count,
+  height: '250px',
+  class: 'box',
+  theme: 'vintage',
+  options: {
+    xAxis: {
+      name: "Age"
+    },
+    yAxis: {
+      name: "Count"
+    },
+    series: {
+      name: "People Count"
+    }     
+  }
+%>
+
+<h2 class="subtitle">area_chart #2</h2>
+<%= area_chart User.distinct.pluck(:role).map{|e| {name: e, data: User.where(role: e).group_by_day(:created_at).count} },
+  class: 'box',
+  debug: false,
+  theme: 'macarons'
+%>
+
+<h2 class="subtitle">area_chart #3</h2>
+<%= area_chart({10 => 24, 20 => 44, 30 => 57}, {class: 'box'}) %>
+
+<h2 class="subtitle">area_chart #4 + zoom</h2>
+<%= area_chart DataPoint.pluck(:event_date, :value),
+  class: 'box',
+  code: false,
+  debug: false,
+  options: {
+    xAxis: {
+      type: 'time'
+    },
+    series: {
+      type: 'line'
+    },        
+    dataZoom: [
+      {
+        start: 30,
+        end: 80
+      },
+    ],
+    toolbox: {
+      show: true,
+      feature: {
+        dataZoom: {
+          yAxisIndex: 'none'
+        },
+        restore: {},
+        saveAsImage: {}
+      }
+    }
+  }
+    %>
