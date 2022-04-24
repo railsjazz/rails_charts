@@ -47,4 +47,18 @@ describe RailsCharts::LineChart do
     end
   end
 
+  describe "#line_chart with JS formatter" do
+    it "build_options" do
+      data = {10 => 42, 20 => 4242}
+      chart = RailsCharts::LineChart.new(data, {
+        options: {
+          tooltip: {
+            valueFormatter: RailsCharts::Function.new("(value) => '$' + value.toFixed(2)")
+          }
+        }
+      })
+      expect(chart.option).to include(":(value) => '$' + value.toFixed(2)")
+    end
+  end  
+
 end

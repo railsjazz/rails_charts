@@ -1,11 +1,14 @@
 <h2 class="subtitle">line_chart #1</h2>
 
-<%= line_chart User.group(:age).count, class: 'box', options: {
-  title: {
-    text: "People count by age",
-    left: 'center'
+<%= line_chart User.group(:age).count, class: 'box', 
+  code: false,
+  options: {
+    title: {
+      text: "People count by age",
+      left: 'center'
+    },
   }
-} %>
+%>
 
 <h2 class="subtitle">line_chart #2</h2>
 

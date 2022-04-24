@@ -2,9 +2,14 @@
 <%= bar_chart User.group(:role).sum(:salary),
   class: 'box',
   theme: 'roma',
-  xAxis: {
-    axisTick: {
-      alignWithLabel: true
+  options: {
+    xAxis: {
+      axisTick: {
+        alignWithLabel: true
+      }
+    },
+    tooltip: {
+      valueFormatter: RailsCharts::Function.new("(value) => '$' + value")
     }
   }
 %>

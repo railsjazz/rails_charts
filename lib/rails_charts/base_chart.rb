@@ -39,11 +39,19 @@ module RailsCharts
             <!-- #{self.class} -->
             var chartDom = document.getElementById('#{container_id}');
             var myChart = echarts.init(chartDom, #{theme.to_json}, { "locale": #{locale.to_json} });
-            var option = #{build_options.to_json};
+            var option = #{option};
             option && myChart.setOption(option);
           </script>
         </div>
       }
+    end
+
+    def option
+      str = build_options.to_json
+      Thread.current[:rails_charts_functions].each do |k, v|
+        str.gsub!("\"#{k}\"", v)
+      end if Thread.current[:rails_charts_functions]
+      str
     end
 
     def build_options
