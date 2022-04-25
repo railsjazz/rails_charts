@@ -56,6 +56,10 @@ module RailsCharts
       generate_rails_chart GaugeChart, data, options
     end
 
+    def candlestick_chart(data, options = {})
+      generate_rails_chart CandlestickChart, data, options
+    end    
+
     def custom_chart(options = {})
       generate_rails_chart CustomChart, [], options
     end

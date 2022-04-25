@@ -16,6 +16,7 @@ require "rails_charts/gauge_chart"
 require "rails_charts/scatter_chart"
 require "rails_charts/parallel_chart"
 require "rails_charts/sankey_chart"
+require "rails_charts/candlestick_chart"
 require "rails_charts/custom_chart"
 require "rails_charts/helpers"
 

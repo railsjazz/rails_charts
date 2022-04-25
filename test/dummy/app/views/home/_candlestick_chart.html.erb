@@ -1,0 +1,63 @@
+<h2 class="subtitle">candlestick_chart #1</h2>
+<%= candlestick_chart({
+    '2017-10-24' => [20, 34, 10, 38],
+    '2017-10-25' => [40, 35, 30, 50],
+    '2017-10-26' => [31, 38, 33, 44],
+    '2017-10-27' => [38, 15, 5, 42]
+  },
+  class: 'box',
+  theme: 'roma',
+  options: {
+    xAxis: {
+      axisTick: {
+        alignWithLabel: true
+      }
+    }
+  })
+%>
+
+<h2 class="subtitle">candlestick_chart #2</h2>
+<%= candlestick_chart DataPoint.data_for_candlestick,
+  class: 'box',
+  theme: 'sakura',
+  options: {
+    series: {
+      itemStyle: {
+        color: '#ec0000',
+        color0: '#008F28',
+        borderColor: '#8A0000',
+        borderColor0: '#008F28'
+      }
+    },
+    title: {
+      text: "Sample Report"
+    },
+    xAxis: {
+      boundaryGap: false,
+      axisLine: { onZero: false },
+      splitLine: { show: false },
+      min: 'dataMin',
+      max: 'dataMax'
+    },
+    yAxis: {
+      scale: true,
+      splitArea: {
+        show: true
+      }
+    },
+    dataZoom: [
+      {
+        type: 'inside',
+        start: 50,
+        end: 100
+      },
+      {
+        show: true,
+        type: 'slider',
+        top: '90%',
+        start: 50,
+        end: 100
+      }
+    ],
+  }
+%>

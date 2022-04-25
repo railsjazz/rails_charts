@@ -21,6 +21,9 @@
   options: {
     series: { 
       barWidth: '50%'
+    },
+    tooltip: {
+      valueFormatter: RailsCharts::Function.new("(value) => '$' + Math.round(value)")
     }
   }
 %>
@@ -52,3 +55,23 @@
     }
   }
 %>
+
+
+<h2 class="subtitle">bar_chart #4</h2>
+<%= bar_chart({
+  'Mon' => 120,
+  'Tue' => 130,
+  'Wed' => {
+    value: 200,
+    itemStyle: {
+      color: '#a90000'
+    }
+  },
+  'Thu' => 70,
+  'Fri' => 150,
+  'Sat' => 190,
+  'Sun' => 140
+}, {
+   class: 'box',
+   options: {}
+}) %>

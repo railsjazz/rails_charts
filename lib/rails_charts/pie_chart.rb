@@ -10,11 +10,26 @@ module RailsCharts
     end
 
     def generate_series_options
-      {
-        data: data.map{|k, v| {name: k, value: v} },
-        type: type
-      }
+      if data[0].is_a?(Hash)
+        {
+          data: data,
+          type: type
+        }
+      else
+        {
+          data: data.map{|k, v| {name: k, value: v} },
+          type: type
+        }
+      end
     end
+
+    def x_axis
+      []
+    end
+
+    def y_axis
+      []
+    end    
 
     def defaults
       {

@@ -1,5 +1,4 @@
 <h2 class="subtitle">line_chart #1</h2>
-
 <%= line_chart User.group(:age).count, class: 'box', 
   code: false,
   options: {
@@ -11,7 +10,6 @@
 %>
 
 <h2 class="subtitle">line_chart #2</h2>
-
 <%= line_chart User.distinct.pluck(:role).map{|e| {name: e, data: User.where(role: e).group_by_day(:created_at).count} },
   class: 'box',
   debug: false,
@@ -31,5 +29,53 @@
       show: true,
       position: 'top'
     },
+  }
+%>
+
+
+<h2 class="subtitle">line_chart #3</h2>
+<%= line_chart User.group(:age).count, class: 'box', 
+  code: false,
+  options: {
+    title: {
+      text: "People count by age v2",
+      left: 'center'
+    },
+    xAxis: {
+      boundaryGap: false,
+    },
+    yAxis: {
+      type: 'value',
+      boundaryGap: [0, '100%']
+    },
+    tooltip: {
+      trigger: 'axis',
+      axisPointer: {
+        type: 'cross',
+        label: {
+          precision: 0
+        }
+      },
+    },
+    series: {
+      symbol: 'none',
+      sampling: 'lttb',
+      itemStyle: {
+        color: '#d65bca'
+      },
+      areaStyle: {
+        color: RailsCharts::Function.new(%Q{new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+          {
+            offset: 0,
+            color: '#d65bca'
+          },
+          {
+            offset: 1,
+            color: '#00b712'
+          }
+        ])}
+        )
+      }
+    }
   }
 %>
