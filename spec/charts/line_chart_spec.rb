@@ -53,7 +53,7 @@ describe RailsCharts::LineChart do
       chart = RailsCharts::LineChart.new(data, {
         options: {
           tooltip: {
-            valueFormatter: RailsCharts::Function.new("(value) => '$' + value.toFixed(2)")
+            valueFormatter: RailsCharts::Javascript.new("(value) => '$' + value.toFixed(2)")
           }
         }
       })

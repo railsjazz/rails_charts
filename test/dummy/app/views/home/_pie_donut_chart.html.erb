@@ -80,7 +80,7 @@
           },
           animationType: 'scale',
           animationEasing: 'elasticOut',
-          animationDelay: RailsCharts::Function.new(%Q{
+          animationDelay: RailsCharts::Javascript.new(%Q{
             function (idx) {
               return Math.random() * 200;
             }

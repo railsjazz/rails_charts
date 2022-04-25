@@ -48,9 +48,9 @@ module RailsCharts
 
     def option
       str = build_options.to_json
-      Thread.current[:rails_charts_functions].each do |k, v|
+      Thread.current[:rails_charts_js_code].each do |k, v|
         str.gsub!("\"#{k}\"", v)
-      end if Thread.current[:rails_charts_functions]
+      end if Thread.current[:rails_charts_js_code]
       str
     end
 

@@ -9,7 +9,7 @@
       }
     },
     tooltip: {
-      valueFormatter: RailsCharts::Function.new("(value) => '$' + value")
+      valueFormatter: RailsCharts::Javascript.new("(value) => '$' + value")
     }
   }
 %>
@@ -23,7 +23,7 @@
       barWidth: '50%'
     },
     tooltip: {
-      valueFormatter: RailsCharts::Function.new("(value) => '$' + Math.round(value)")
+      valueFormatter: RailsCharts::Javascript.new("(value) => '$' + Math.round(value)")
     }
   }
 %>

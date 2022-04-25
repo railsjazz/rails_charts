@@ -1,6 +1,6 @@
 require "rails_charts/version"
 require "rails_charts/ruby_ext"
-require "rails_charts/function"
+require "rails_charts/javascript"
 require "rails_charts/railtie"
 require "rails_charts/base_chart"
 require "rails_charts/line_chart"
