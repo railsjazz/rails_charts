@@ -415,6 +415,12 @@ You are welcome to contributes. Some open tasks:
 - add more specs
 - add more examples to the dummy app
 - customization, options overides, default values?
+- every "5sec" refresh
+- remote data
+- how to access chart from JS
+- better documentation how to specify theme, locale, etc
+- more examples with data structure
+- add github actions
 
 ### Development and testing
 
