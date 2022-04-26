@@ -1,6 +1,6 @@
 # Rails Charts
 
-![Area Chart](docs/all.jpg)
+![Charts](docs/all.jpg)
 
 One more gem to build nice charts for your Ruby on Rails application.
 
@@ -39,7 +39,7 @@ But this implementation have more customization options (thanks to more Apache e
 Note you can specify different themes.
 
 3) add your first chart `<%= line_chart User.group(:age).count %>`
-4) customize charts if needed. See available options or [official documentation](https://echarts.apache.org/examples/en/index.html). 
+4) customize charts if needed. See available options or [official Apache eCharts documentation](https://echarts.apache.org/examples/en/index.html). 
 
 ## Installation
 
@@ -53,6 +53,36 @@ And then execute:
 ```bash
 $ bundle
 ```
+
+## Options
+
+```ruby
+<%= link_chart data, {
+  width: '250px',
+  height: '250px',
+  theme: 'dark',
+  class: 'chart-container-class',
+  style: 'padding: 10px'
+} %>
+```
+
+Available options:
+
+width: specify width of the chart
+height: specify height of the chart
+theme: specify theme of the chart (available themes examples https://echarts.apache.org/en/download-theme.html)
+class: specify container's CSS class
+id: specify container's ID
+style: add inline style
+debug: for gem development useful if you want to pause somewhere in the code
+vertical: applicable for some types of charts
+code: to see output code what is generated to see the chart, useful for debugging
+options: {...}, specify additional eCharts options
+
+
+## Examples
+
+More examples: https://github.com/railsjazz/rails_charts/tree/main/test/dummy/app/views/home.
 
 ## Charts
 
