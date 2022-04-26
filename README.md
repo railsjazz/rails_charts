@@ -1,5 +1,7 @@
 # Rails Charts
 
+![Area Chart](docs/all.jpg)
+
 One more gem to build nice charts for your Ruby on Rails application.
 
 It contains useful helpers to build various types of charts of use custom option to build very complex charts using Apache eCharts library.
