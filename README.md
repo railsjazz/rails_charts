@@ -28,17 +28,23 @@ In most cases with one line of code you can have a nice chart. The idea of this 
 
 But this implementation have more customization options (thanks to more Apache eCharts).
 
-1) add gem in Gemfile, `gem "rails_charts"`
+1) add gem in Gemfile, 
+```ruby
+gem "rails_charts"
+```
 2) add JS, for example in `application.js`
 
-```
+```js
 //= require rails_charts/echarts.min.js
 //= require rails_charts/theme/vintage.js
 ```
 
 Note you can specify different themes.
 
-3) add your first chart `<%= line_chart User.group(:age).count %>`
+3) add your first chart 
+```ruby
+<%= line_chart User.group(:age).count %>
+```
 4) customize charts if needed. See available options or [official documentation](https://echarts.apache.org/examples/en/index.html). 
 
 ## Installation
@@ -60,7 +66,7 @@ $ bundle
 
 ![Area Chart](docs/area_chart.png)
 
-```erb
+```ruby
 <%= area_chart User.distinct.pluck(:role).map{|e| {name: e, data: User.where(role: e).group_by_day(:created_at).count} } %>
 ```
 
@@ -68,7 +74,7 @@ $ bundle
 
 ![Line Chart](docs/line_chart.png)
 
-```erb
+```ruby
 <%= line_chart User.group(:age).count, class: 'box', 
   options: {
     title: {
@@ -83,7 +89,7 @@ $ bundle
 
 ![Bar Chart](docs/bar_chart.png)
 
-```erb
+```ruby
 <%= bar_chart User.group(:role).average(:age),
   class: 'box',
   theme: 'sakura',
@@ -102,7 +108,7 @@ $ bundle
 
 ![Calendar Chart](docs/calendar_chart.png)
 
-```erb
+```ruby
 <%= calendar_chart Commit.for_calendar_chart,
   class: 'box',
   options: {
@@ -124,7 +130,7 @@ $ bundle
 
 ![Candlestick Chart](docs/candlestick_chart.png)
 
-```erb
+```ruby
 <%= candlestick_chart({
     '2017-10-24' => [20, 34, 10, 38],
     '2017-10-25' => [40, 35, 30, 50],
@@ -147,24 +153,24 @@ $ bundle
 
 ![Funnel Chart](docs/funnel_chart.png)
 
-```erb
-    <%= funnel_chart User.get_funnel_sample_data,
-      class: 'box',
-      height: '400px',
-      options: {
-        title: {
-          text: 'Demo',
-          left: 'center'
-        }
-      }
-    %>
+```ruby
+<%= funnel_chart User.get_funnel_sample_data,
+  class: 'box',
+  height: '400px',
+  options: {
+    title: {
+      text: 'Demo',
+      left: 'center'
+    }
+  }
+%>
 ```
 
 ### Gauge Chart
 
 ![Gauge Chart](docs/gauge_chart.png)
 
-```erb
+```ruby
 <%= gauge_chart User.get_gauge_sample_data,
   class: 'box',
   height: '400px',
@@ -181,7 +187,7 @@ $ bundle
 
 ![Parallel Chart](docs/parallel_chart.png)
 
-```erb
+```ruby
 <div class="box">
   <%= parallel_chart [
     [1, 2, 1, "Ruby"],
@@ -205,7 +211,7 @@ $ bundle
 
 ![Donut Chart](docs/donut_chart.png)
 
-```erb
+```ruby
 <%= donut_chart User.group(:role).count, 
   class: 'box',
   options: {
@@ -227,7 +233,7 @@ $ bundle
 
 ![Pie Chart](docs/pie_chart.png)
 
-```erb
+```ruby
 <%= pie_chart User.group(:role).count, 
   class: 'box',
   options: {
@@ -240,7 +246,7 @@ $ bundle
 
 ![Radar Chart](docs/radar_chart.png)
 
-```erb
+```ruby
 <%= radar_chart User.get_data_for_radar_chart,
   class: 'box',
   options: {
@@ -257,7 +263,7 @@ $ bundle
 
 ![Sankey Chart](docs/sankey_chart.png)
 
-```erb
+```ruby
 <%= sankey_chart({
     data: [
       {name: 'Ruby'}, {name: 'HTML'}, {name: 'JS'}, {name: 'Good'}, {name: 'Bad'}, {name: 'CSS'}, {name: 'PHP'}, {name: 'Frontend'}, {name: 'Backend'}
@@ -316,7 +322,7 @@ $ bundle
 
 ![Scatter Chart](docs/scatter_chart.png)
 
-```erb
+```ruby
 <%= scatter_chart [
     { name: 'John', data: User.random_scatter_chart(500, 200) },
     { name: 'Bob', data: User.random_scatter_chart(500, 1000) },
@@ -345,7 +351,7 @@ $ bundle
 
 ![Stacked bar Chart](docs/stacked_bar_chart.png)
 
-```erb
+```ruby
 <%= stacked_bar_chart [
     { name: 'high priority', data: Account.high_priority.group_by_month(:created_at, format: "%b %Y").count },
     { name: 'low priority', data: Account.low_priority.group_by_month(:created_at, format: "%b %Y").count }
@@ -366,7 +372,7 @@ $ bundle
 
 ![Custom Chart](docs/custom_chart.png)
 
-```erb
+```ruby
 <%= custom_chart {...raw JS options ...} %>
 ```
 
