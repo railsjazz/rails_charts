@@ -1,16 +1,13 @@
 module RailsCharts
   class Engine < ::Rails::Engine
-    # for importmap
+
     initializer "rails_charts.importmap", before: "importmap" do |app|
       if defined?(Importmap)
-        puts "IMPORTMAP"
         app.config.assets.paths << File.expand_path('../..', __dir__) + "/vendor/assets"
         app.config.assets.precompile << ".js"
 
         app.config.assets.precompile += [
           'vendor/assets/**/*', 
-       #   'rails_charts/**/*',
-       #   'vendor/assets/rails_charts/*', 
           'vendor/assets/rails_charts/**/*'
         ]        
 
