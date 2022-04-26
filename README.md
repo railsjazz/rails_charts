@@ -74,6 +74,7 @@ $ bundle
 
 Available options:
 
+```
 width: specify width of the chart
 height: specify height of the chart
 theme: specify theme of the chart (available themes examples https://echarts.apache.org/en/download-theme.html)
@@ -84,13 +85,12 @@ debug: for gem development useful if you want to pause somewhere in the code
 vertical: applicable for some types of charts
 code: to see output code what is generated to see the chart, useful for debugging
 options: {...}, specify additional eCharts options
+```
 
-
-## Examples
-
-More examples: https://github.com/railsjazz/rails_charts/tree/main/test/dummy/app/views/home.
 
 ## Charts
+
+All examples available in https://github.com/railsjazz/rails_charts/tree/main/test/dummy/app/views/home. You can see more examples if you clone this repo and start a dummy app.
 
 ### Area Chart
 
