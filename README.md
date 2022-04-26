@@ -8,17 +8,17 @@ It contains useful helpers to build various types of charts of use custom option
 
 What you can build with it:
 
+- line chart
 - area chart
 - bar chart
+- donut chart
+- pie chart
+- radar chart
 - calendar chart
 - candlestick chart
 - funnel chart
 - gauge chart
-- line chart
 - parallel chart
-- donut chart
-- pie chart
-- radar chart
 - sankey chart
 - scatter chart
 - stacked bar chart
@@ -421,6 +421,8 @@ You are welcome to contributes. Some open tasks:
 - better documentation how to specify theme, locale, etc
 - more examples with data structure
 - add github actions
+- add info about initializer and it's configuration
+- specify info about default configs per chart
 
 ### Development and testing
 
