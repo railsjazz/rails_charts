@@ -60,6 +60,41 @@ And then execute:
 $ bundle
 ```
 
+### Sprockets
+
+1) add eCharts in main JS
+
+```javascript
+//= require rails_charts/echarts.min.js
+//= require rails_charts/theme/dark.js
+```
+
+2) start using :)
+
+### Importmaps
+
+1) change `config/importmap.rb`
+
+```ruby
+pin "rails_charts/echarts.min.js", to: "rails_charts/echarts.min.js", preload: true
+pin "rails_charts/theme/dark.js", to: "rails_charts/theme/dark.js", preload: true
+```
+
+2) change manifest `app/assets/config/manifest.js`
+
+```javascript
+//= link rails_charts/echarts.min.js
+//= link rails_charts/theme/dark.js
+```
+
+3) add eCharts in main JS 
+
+```javascript
+import "rails_charts/echarts.min.js"
+```
+
+4) start using :)
+
 ## Options
 
 ```ruby
@@ -423,6 +458,7 @@ You are welcome to contributes. Some open tasks:
 - add github actions
 - add info about initializer and it's configuration
 - specify info about default configs per chart
+- add support for CSP similar to https://github.com/ankane/chartkick/blob/master/lib/chartkick/helper.rb#L55
 
 ### Development and testing
 

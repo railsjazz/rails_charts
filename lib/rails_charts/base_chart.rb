@@ -36,11 +36,42 @@ module RailsCharts
       %Q{
         <div id="#{container_id}" class="#{klass}" style="#{style_css.compact.join('; ')}">
           <script>
-            <!-- #{self.class} -->
-            var chartDom = document.getElementById('#{container_id}');
-            var myChart = echarts.init(chartDom, #{theme.to_json}, { "locale": #{locale.to_json} });
-            var option = #{option};
-            option && myChart.setOption(option);
+            if (!window.RailsCharts) {
+              window.RailsCharts = {}
+              window.RailsCharts.charts = {}
+            }
+
+            function init#{container_id}(e) {
+              if (document.documentElement.hasAttribute("data-turbolinks-preview")) return;
+              if (document.documentElement.hasAttribute("data-turbo-preview")) return;
+    
+              <!-- #{self.class} -->
+              var chartDom = document.getElementById('#{container_id}');
+
+              if (!chartDom) { return }
+  
+              var lib = ("echarts" in window) ? window.echarts : echarts;
+              var chart = lib.init(chartDom, #{theme.to_json}, { "locale": #{locale.to_json} });
+              var option = #{option};
+              option && chart.setOption(option);
+
+              window.RailsCharts.charts["#{container_id}"] = chart;
+            }
+
+            function destroy#{container_id}(e) {
+              var chart = window.RailsCharts.charts["#{container_id}"];
+              if (chart) {
+                chart.dispose()
+              }
+              delete window.RailsCharts.charts["#{container_id}"];
+            }
+
+            window.addEventListener('load', init#{container_id});
+            window.addEventListener('turbo:load', init#{container_id});
+            window.addEventListener('turbolinks:load', init#{container_id});
+
+            document.addEventListener("turbolinks:before-render", destroy#{container_id});
+            document.addEventListener("turbo:before-render", destroy#{container_id});
           </script>
         </div>
       }
