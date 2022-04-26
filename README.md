@@ -62,7 +62,7 @@ $ bundle
 
 ### Sprockets
 
-1) add eCharts in main JS
+1) add eCharts in main JS bundle, e.g. `app/assets/javascripts/application.js`
 
 ```javascript
 //= require rails_charts/echarts.min.js
