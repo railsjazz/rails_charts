@@ -1,5 +1,5 @@
 <div class="columns">
-  <div class="column is-one-third">
+  <div class="column is-half">
     <h2 class="subtitle">pie_chart #1</h2>
     <%= pie_chart User.group(:role).count, 
       class: 'box',
@@ -8,7 +8,7 @@
       }
     %>
   </div>
-  <div class="column is-one-third">
+  <div class="column is-half">
     <h2 class="subtitle">donut_chart #1</h2>
     <%= donut_chart User.group(:role).count, 
       class: 'box',
@@ -26,7 +26,9 @@
       }
     %>
   </div>
-  <div class="column is-one-third">
+ </div> 
+<div class="columns">
+  <div class="column is-half">
     <h2 class="subtitle">donut_chart #1</h2>
     <%= pie_chart [
       { value: 335, name: 'Direct' },

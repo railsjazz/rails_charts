@@ -6,7 +6,7 @@ It contains useful helpers to build various types of charts of use custom option
 
 What you can build with it:
 
-- area char
+- area chart
 - bar chart
 - calendar chart
 - candlestick chart
@@ -25,8 +25,6 @@ What you can build with it:
 In most cases with one line of code you can have a nice chart. The idea of this gem was inspired by [Charkick](https://github.com/ankane/chartkick) gem which is great and allows you to build charts very quickly. It works the best with cooperation of [groupdate](https://github.com/ankane/groupdate) gem.
 
 But this implementation have more customization options (thanks to more Apache eCharts).
-
-## Usage
 
 1) add gem in Gemfile, `gem "rails_charts"`
 2) add JS, for example in `application.js`
@@ -52,6 +50,322 @@ gem "rails_charts"
 And then execute:
 ```bash
 $ bundle
+```
+
+## Charts
+
+### Area Chart
+
+![Area Chart](docs/area_chart.png)
+
+```erb
+<%= area_chart User.distinct.pluck(:role).map{|e| {name: e, data: User.where(role: e).group_by_day(:created_at).count} } %>
+```
+
+### Line Chart
+
+![Line Chart](docs/line_chart.png)
+
+```erb
+<%= line_chart User.group(:age).count, class: 'box', 
+  options: {
+    title: {
+      text: "People count by age",
+      left: 'center'
+    },
+  }
+%>
+```
+
+### Bar Chart
+
+![Bar Chart](docs/bar_chart.png)
+
+```erb
+<%= bar_chart User.group(:role).average(:age),
+  class: 'box',
+  theme: 'sakura',
+  options: {
+    series: { 
+      barWidth: '50%'
+    },
+    tooltip: {
+      valueFormatter: RailsCharts::Javascript.new("(value) => '$' + Math.round(value)")
+    }
+  }
+%>
+```
+
+### Calendar Chart
+
+![Calendar Chart](docs/calendar_chart.png)
+
+```erb
+<%= calendar_chart Commit.for_calendar_chart,
+  class: 'box',
+  options: {
+    visualMap: {
+      show: true,
+      min: 0,
+      max: 40,
+      orient: 'horizontal'
+    },
+    calendar: [{
+      range: '2021',
+    },]
+  }
+%>
+
+```
+
+### Candlestick Chart
+
+![Candlestick Chart](docs/candlestick_chart.png)
+
+```erb
+<%= candlestick_chart({
+    '2017-10-24' => [20, 34, 10, 38],
+    '2017-10-25' => [40, 35, 30, 50],
+    '2017-10-26' => [31, 38, 33, 44],
+    '2017-10-27' => [38, 15, 5, 42]
+  },
+  class: 'box',
+  theme: 'roma',
+  options: {
+    xAxis: {
+      axisTick: {
+        alignWithLabel: true
+      }
+    }
+  })
+%>
+```
+
+### Funnel Chart
+
+![Funnel Chart](docs/funnel_chart.png)
+
+```erb
+    <%= funnel_chart User.get_funnel_sample_data,
+      class: 'box',
+      height: '400px',
+      options: {
+        title: {
+          text: 'Demo',
+          left: 'center'
+        }
+      }
+    %>
+```
+
+### Gauge Chart
+
+![Gauge Chart](docs/gauge_chart.png)
+
+```erb
+<%= gauge_chart User.get_gauge_sample_data,
+  class: 'box',
+  height: '400px',
+  options: {
+    title: {
+      text: 'Demo',
+      left: 'center'
+    }
+  }
+%>
+```
+
+### Parallel Chart
+
+![Parallel Chart](docs/parallel_chart.png)
+
+```erb
+<div class="box">
+  <%= parallel_chart [
+    [1, 2, 1, "Ruby"],
+    [2, 3, 2, "JavaScript"],
+    [3, 1, 3, "C#"]
+  ], {
+    options: {
+      parallelAxis: [
+        { dim: 0, name: '2019', inverse: true, minInterval: 1, min: 1, nameTextStyle: { fontSize: 16 }, axisLabel: { fontSize: 16 } },
+        { dim: 1, name: '2020', inverse: true, minInterval: 1, min: 1, nameTextStyle: { fontSize: 16 }, axisLabel: { fontSize: 16 } },
+        { dim: 2, name: '2021', inverse: true, minInterval: 1, min: 1, nameTextStyle: { fontSize: 16 }, axisLabel: { fontSize: 16 } },
+        { dim: 3, type: "category", name: 'Language', data: ["Ruby", "JavaScript", "C#"], inverse: true, nameTextStyle: { fontSize: 16 }, axisLabel: { fontSize: 14 } },
+      ]
+    }
+  }
+  %>
+</div>
+```
+
+### Donut Chart
+
+![Donut Chart](docs/donut_chart.png)
+
+```erb
+<%= donut_chart User.group(:role).count, 
+  class: 'box',
+  options: {
+    legend: {
+      bottom: '0'
+    },
+    emphasis: { 
+      itemStyle: {
+        shadowBlur: 10,
+        shadowOffsetX: 0,
+        shadowColor: 'rgba(0, 0, 0, 0.5)'
+      } 
+    }
+  }
+%>
+```
+
+### Pie Chart
+
+![Pie Chart](docs/pie_chart.png)
+
+```erb
+<%= pie_chart User.group(:role).count, 
+  class: 'box',
+  options: {
+    legend: { orient: 'vertical', left: 'left' }
+  }
+%>
+```
+
+### Radar Chart
+
+![Radar Chart](docs/radar_chart.png)
+
+```erb
+<%= radar_chart User.get_data_for_radar_chart,
+  class: 'box',
+  options: {
+    legend: {
+      data: ['Average Salaries', 'Maximum Salary'],
+      orient: 'vertical',
+      left: '20%'
+    }
+  }
+%>
+```
+
+### Sankey Chart
+
+![Sankey Chart](docs/sankey_chart.png)
+
+```erb
+<%= sankey_chart({
+    data: [
+      {name: 'Ruby'}, {name: 'HTML'}, {name: 'JS'}, {name: 'Good'}, {name: 'Bad'}, {name: 'CSS'}, {name: 'PHP'}, {name: 'Frontend'}, {name: 'Backend'}
+    ],
+    links: [
+      {
+        source: 'Ruby',
+        target: 'Good',
+        value: 1
+      },
+      {
+        source: 'HTML',
+        target: 'Good',
+        value: 1
+      },  
+      {
+        source: 'JS',
+        target: 'Good',
+        value: 1
+      },  
+      {
+        source: 'CSS',
+        target: 'Good',
+        value: 1
+      },
+      {
+        source: 'PHP',
+        target: 'Bad',
+        value: 1
+      },
+      {
+        source: 'Good',
+        target: 'Backend',
+        value: 1
+      },         
+      {
+        source: 'Good',
+        target: 'Frontend',
+        value: 3
+      },
+      {
+        source: 'Bad',
+        target: 'Backend',
+        value: 1
+      },             
+    ]
+  }, {
+    options: {
+
+    }
+  })
+  %>
+```
+
+### Scatter Chart
+
+![Scatter Chart](docs/scatter_chart.png)
+
+```erb
+<%= scatter_chart [
+    { name: 'John', data: User.random_scatter_chart(500, 200) },
+    { name: 'Bob', data: User.random_scatter_chart(500, 1000) },
+  ],
+  {
+    class: 'box',
+    options: {
+      xAxis: {
+        name: 'Distance'
+      },
+      yAxis: {
+        name: 'Sales'
+      },          
+      legend: {
+        data: [
+          {name: 'John'},
+          {name: 'Bob'},
+        ]
+      },
+    },
+  }
+%>
+```
+
+### Stacked bar Chart
+
+![Stacked bar Chart](docs/stacked_bar_chart.png)
+
+```erb
+<%= stacked_bar_chart [
+    { name: 'high priority', data: Account.high_priority.group_by_month(:created_at, format: "%b %Y").count },
+    { name: 'low priority', data: Account.low_priority.group_by_month(:created_at, format: "%b %Y").count }
+  ],
+  {
+    options: {
+      title: {
+        text: "Popular vs Unpopular"
+      },
+    },
+    class: 'box',
+    vertical: true
+  }
+%>
+```
+
+### Custom Chart
+
+![Custom Chart](docs/custom_chart.png)
+
+```erb
+<%= custom_chart {...raw JS options ...} %>
 ```
 
 ## Contributing
