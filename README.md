@@ -4,7 +4,7 @@
 
 One more gem to build nice charts for your Ruby on Rails application.
 
-It contains useful helpers to build various types of charts of use custom option to build very complex charts using Apache eCharts library.
+With it you can build various types of charts Apache eCharts library. This gem simplifies interface and adding few helpers to start adding charts in your app with just a few lines of code.
 
 What you can build with it:
 
@@ -24,9 +24,9 @@ What you can build with it:
 - stacked bar chart
 - custom chart
 
-In most cases with one line of code you can have a nice chart. The idea of this gem was inspired by [Charkick](https://github.com/ankane/chartkick) gem which is great and allows you to build charts very quickly. It works the best with cooperation of [groupdate](https://github.com/ankane/groupdate) gem.
+In most cases with one line of code you can have a nice chart. The idea of this gem was inspired by [Charkick](https://github.com/ankane/chartkick) gem which is great and allows you to build charts very quickly. It works the best with cooperation of [groupdate](https://github.com/ankane/groupdate) gem. Unfortunatelly it's missing many needed types of charts or other customization options.
 
-But this implementation have more customization options (thanks to more Apache eCharts).
+This implementation have more options and similar "interface" how to build charts (thanks to more Apache eCharts).
 
 1) add gem in Gemfile, 
 ```ruby
@@ -119,9 +119,10 @@ style: add inline style
 debug: for gem development useful if you want to pause somewhere in the code
 vertical: applicable for some types of charts
 code: to see output code what is generated to see the chart, useful for debugging
-options: {...}, specify additional eCharts options
+options: {...}, nested hash, specify additional eCharts options
 ```
 
+Apache eCharts options - https://echarts.apache.org/en/option.html#title.
 
 ## Charts
 
@@ -459,6 +460,7 @@ You are welcome to contributes. Some open tasks:
 - add info about initializer and it's configuration
 - specify info about default configs per chart
 - add support for CSP similar to https://github.com/ankane/chartkick/blob/master/lib/chartkick/helper.rb#L55
+- example of how to build multiple-chart charts
 
 ### Development and testing
 
