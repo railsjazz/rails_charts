@@ -28,18 +28,24 @@ In most cases with one line of code you can have a nice chart. The idea of this 
 
 But this implementation have more customization options (thanks to more Apache eCharts).
 
-1) add gem in Gemfile, `gem "rails_charts"`
+1) add gem in Gemfile, 
+```ruby
+gem "rails_charts"
+```
 2) add JS, for example in `application.js`
 
-```
+```js
 //= require rails_charts/echarts.min.js
 //= require rails_charts/theme/vintage.js
 ```
 
 Note you can specify different themes.
 
-3) add your first chart `<%= line_chart User.group(:age).count %>`
-4) customize charts if needed. See available options or [official Apache eCharts documentation](https://echarts.apache.org/examples/en/index.html). 
+3) add your first chart 
+```ruby
+<%= line_chart User.group(:age).count %>
+```
+4) customize charts if needed. See available options or [official documentation](https://echarts.apache.org/examples/en/index.html). 
 
 ## Installation
 
@@ -90,7 +96,7 @@ More examples: https://github.com/railsjazz/rails_charts/tree/main/test/dummy/ap
 
 ![Area Chart](docs/area_chart.png)
 
-```erb
+```ruby
 <%= area_chart User.distinct.pluck(:role).map{|e| {name: e, data: User.where(role: e).group_by_day(:created_at).count} } %>
 ```
 
@@ -98,7 +104,7 @@ More examples: https://github.com/railsjazz/rails_charts/tree/main/test/dummy/ap
 
 ![Line Chart](docs/line_chart.png)
 
-```erb
+```ruby
 <%= line_chart User.group(:age).count, class: 'box', 
   options: {
     title: {
@@ -113,7 +119,7 @@ More examples: https://github.com/railsjazz/rails_charts/tree/main/test/dummy/ap
 
 ![Bar Chart](docs/bar_chart.png)
 
-```erb
+```ruby
 <%= bar_chart User.group(:role).average(:age),
   class: 'box',
   theme: 'sakura',
@@ -132,7 +138,7 @@ More examples: https://github.com/railsjazz/rails_charts/tree/main/test/dummy/ap
 
 ![Calendar Chart](docs/calendar_chart.png)
 
-```erb
+```ruby
 <%= calendar_chart Commit.for_calendar_chart,
   class: 'box',
   options: {
@@ -154,7 +160,7 @@ More examples: https://github.com/railsjazz/rails_charts/tree/main/test/dummy/ap
 
 ![Candlestick Chart](docs/candlestick_chart.png)
 
-```erb
+```ruby
 <%= candlestick_chart({
     '2017-10-24' => [20, 34, 10, 38],
     '2017-10-25' => [40, 35, 30, 50],
@@ -177,24 +183,24 @@ More examples: https://github.com/railsjazz/rails_charts/tree/main/test/dummy/ap
 
 ![Funnel Chart](docs/funnel_chart.png)
 
-```erb
-    <%= funnel_chart User.get_funnel_sample_data,
-      class: 'box',
-      height: '400px',
-      options: {
-        title: {
-          text: 'Demo',
-          left: 'center'
-        }
-      }
-    %>
+```ruby
+<%= funnel_chart User.get_funnel_sample_data,
+  class: 'box',
+  height: '400px',
+  options: {
+    title: {
+      text: 'Demo',
+      left: 'center'
+    }
+  }
+%>
 ```
 
 ### Gauge Chart
 
 ![Gauge Chart](docs/gauge_chart.png)
 
-```erb
+```ruby
 <%= gauge_chart User.get_gauge_sample_data,
   class: 'box',
   height: '400px',
@@ -211,7 +217,7 @@ More examples: https://github.com/railsjazz/rails_charts/tree/main/test/dummy/ap
 
 ![Parallel Chart](docs/parallel_chart.png)
 
-```erb
+```ruby
 <div class="box">
   <%= parallel_chart [
     [1, 2, 1, "Ruby"],
@@ -235,7 +241,7 @@ More examples: https://github.com/railsjazz/rails_charts/tree/main/test/dummy/ap
 
 ![Donut Chart](docs/donut_chart.png)
 
-```erb
+```ruby
 <%= donut_chart User.group(:role).count, 
   class: 'box',
   options: {
@@ -257,7 +263,7 @@ More examples: https://github.com/railsjazz/rails_charts/tree/main/test/dummy/ap
 
 ![Pie Chart](docs/pie_chart.png)
 
-```erb
+```ruby
 <%= pie_chart User.group(:role).count, 
   class: 'box',
   options: {
@@ -270,7 +276,7 @@ More examples: https://github.com/railsjazz/rails_charts/tree/main/test/dummy/ap
 
 ![Radar Chart](docs/radar_chart.png)
 
-```erb
+```ruby
 <%= radar_chart User.get_data_for_radar_chart,
   class: 'box',
   options: {
@@ -287,7 +293,7 @@ More examples: https://github.com/railsjazz/rails_charts/tree/main/test/dummy/ap
 
 ![Sankey Chart](docs/sankey_chart.png)
 
-```erb
+```ruby
 <%= sankey_chart({
     data: [
       {name: 'Ruby'}, {name: 'HTML'}, {name: 'JS'}, {name: 'Good'}, {name: 'Bad'}, {name: 'CSS'}, {name: 'PHP'}, {name: 'Frontend'}, {name: 'Backend'}
@@ -346,7 +352,7 @@ More examples: https://github.com/railsjazz/rails_charts/tree/main/test/dummy/ap
 
 ![Scatter Chart](docs/scatter_chart.png)
 
-```erb
+```ruby
 <%= scatter_chart [
     { name: 'John', data: User.random_scatter_chart(500, 200) },
     { name: 'Bob', data: User.random_scatter_chart(500, 1000) },
@@ -375,7 +381,7 @@ More examples: https://github.com/railsjazz/rails_charts/tree/main/test/dummy/ap
 
 ![Stacked bar Chart](docs/stacked_bar_chart.png)
 
-```erb
+```ruby
 <%= stacked_bar_chart [
     { name: 'high priority', data: Account.high_priority.group_by_month(:created_at, format: "%b %Y").count },
     { name: 'low priority', data: Account.low_priority.group_by_month(:created_at, format: "%b %Y").count }
@@ -396,7 +402,7 @@ More examples: https://github.com/railsjazz/rails_charts/tree/main/test/dummy/ap
 
 ![Custom Chart](docs/custom_chart.png)
 
-```erb
+```ruby
 <%= custom_chart {...raw JS options ...} %>
 ```
 
