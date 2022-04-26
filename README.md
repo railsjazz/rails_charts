@@ -124,9 +124,21 @@ options: {...}, nested hash, specify additional eCharts options
 
 Apache eCharts options - https://echarts.apache.org/en/option.html#title.
 
+If you need to format tooltip (or other javascript function as an option) you can pass a JS function, but you need to wrap it like:
+
+```ruby
+  options: {
+    tooltip: {
+      valueFormatter: RailsCharts::Javascript.new("(value) => '$' + Math.round(value)")
+    }
+  }
+```
+
 ## Charts
 
 All examples available in https://github.com/railsjazz/rails_charts/tree/main/test/dummy/app/views/home. You can see more examples if you clone this repo and start a dummy app.
+
+Every chart has a built in default configuration for tooltips, or other options (sample https://github.com/railsjazz/rails_charts/blob/main/lib/rails_charts/line_chart.rb#L64-L75). This is just to simplify usage of this gem. In the future the plan is to have it configured in initializer.
 
 ### Area Chart
 

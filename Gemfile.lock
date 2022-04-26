@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    rails_charts (0.1.0)
+    rails_charts (0.0.1)
       rails
 
 GEM
