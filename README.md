@@ -4,7 +4,7 @@
 
 One more gem to build nice charts for your Ruby on Rails application.
 
-With it you can build various types of charts Apache eCharts library. This gem simplifies interface and adding few helpers to start adding charts in your app with just a few lines of code.
+With it you can build various types of charts Apache eCharts library (v. 5.3.2). This gem simplifies interface and adding few helpers to start adding charts in your app with just a few lines of code.
 
 What you can build with it:
 
