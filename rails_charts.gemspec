@@ -3,8 +3,8 @@ require_relative "lib/rails_charts/version"
 Gem::Specification.new do |spec|
   spec.name        = "rails_charts"
   spec.version     = RailsCharts::VERSION
-  spec.authors     = [""]
-  spec.email       = ["igorkasyanchuk@gmail.com"]
+  spec.authors     = ["Igor Kasyanchuk", "Liubomyr Manastyretskyi"]
+  spec.email       = ["igorkasyanchuk@gmail.com", "manastyretskyi@gmail.com"]
   spec.homepage    = "https://github.com/railsjazz/rails_charts"
   spec.summary     = "One more solution to create charts in Ruby on Rails application"
   spec.description = "One more solution to create charts in Ruby on Rails application"
@@ -26,5 +26,4 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "annotate"
   spec.add_development_dependency "rspec-rails"
   spec.add_development_dependency "simplecov"
-
 end
