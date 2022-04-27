@@ -71,6 +71,36 @@ $ bundle
 
 2) start using :)
 
+### Webpack / esbuild
+
+1) Run:
+
+```bash
+yarn add echarts
+```
+
+#### For Rails 7
+2) In `app/javascript/application.js` add this:
+
+```javascript
+import * as echarts from 'echarts';
+import 'echarts/theme/dark';
+
+window.echarts = echarts;
+```
+
+#### For Rails 6
+2) In `app/javascript/packs/application.js` add this:
+
+```javascript
+import * as echarts from 'echarts';
+import 'echarts/theme/dark';
+
+window.echarts = echarts;
+```
+
+3) start using :)
+
 ### Importmaps
 
 1) change `config/importmap.rb`
@@ -98,7 +128,7 @@ import "rails_charts/echarts.min.js"
 ## Options
 
 ```ruby
-<%= link_chart data, {
+<%= line_chart data, {
   width: '250px',
   height: '250px',
   theme: 'dark',
