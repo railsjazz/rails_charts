@@ -3,10 +3,10 @@ require_relative "../rails_helper"
 describe RailsCharts::LineChart do
   before do
     User.create(age: 10, role: 'admin', salary: 100, created_at: Date.yesterday)
-    User.create(age: 11, role: 'admin', salary: 101, created_at: Date.today)
+    User.create(age: 11, role: 'admin', salary: 101, created_at: Date.current)
     User.create(age: 20, role: 'moderator', salary: 20, created_at: Date.yesterday)
-    User.create(age: 21, role: 'moderator', salary: 21, created_at: Date.today)
-    User.create(age: 22, role: 'moderator', salary: 22, created_at: Date.today)
+    User.create(age: 21, role: 'moderator', salary: 21, created_at: Date.current)
+    User.create(age: 22, role: 'moderator', salary: 22, created_at: Date.current)
   end
 
   describe "#line_chart 1 hash" do
@@ -29,6 +29,7 @@ describe RailsCharts::LineChart do
   describe '#line_chart 2 multi' do
     it 'works' do
       # [{:name=>"admin", :data=>{Thu, 21 Apr 2022=>1, Fri, 22 Apr 2022=>1}}, {:name=>"moderator", :data=>{Thu, 21 Apr 2022=>1, Fri, 22 Apr 2022=>2}}]
+      expect(User.count).to eq(5)
       data = User.distinct.pluck(:role).map{|e| {name: e, data: User.where(role: e).group_by_day(:created_at).count}}
       chart = RailsCharts::LineChart.new(data, { debug: false })
       expect(chart.build_options).to eq({
@@ -39,7 +40,7 @@ describe RailsCharts::LineChart do
         :toolbox=>{:feature=>{:saveAsImage=>{}}},
         :tooltip=>{:trigger=>"axis"},
         :xAxis=>{
-          data: [Date.yesterday, Date.today],
+          data: [Date.yesterday, Date.current],
           type: "category"
         },
         :yAxis=>{:type=>"value"}
