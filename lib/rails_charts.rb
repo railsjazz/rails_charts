@@ -25,6 +25,10 @@ module RailsCharts
 
   class << self
     attr_accessor :options, :defaults
+
+    def js(code)
+      RailsCharts::Javascript.new code
+    end
   end
 
   self.options = {

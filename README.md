@@ -24,52 +24,48 @@ What you can build with it:
 - stacked bar chart
 - custom chart
 
-In most cases with one line of code you can have a nice chart. The idea of this gem was inspired by [Charkick](https://github.com/ankane/chartkick) gem which is great and allows you to build charts very quickly. It works the best with cooperation of [groupdate](https://github.com/ankane/groupdate) gem. Unfortunatelly it's missing many needed types of charts or other customization options.
+In most cases with one line of code you can have a nice chart. The idea of this gem was inspired by [Charkick](https://github.com/ankane/chartkick) gem which is great and allows you to build charts very quickly. It works best in cooperation with [groupdate](https://github.com/ankane/groupdate) gem. Unfortunatelly it's missing many needed types of charts or other customization options.
 
-This implementation have more options and similar "interface" how to build charts (thanks to more Apache eCharts).
+This implementation have more options and similar "interface" for building charts.
 
-1) add gem in Gemfile, 
-```ruby
-gem "rails_charts"
-```
-2) add JS, for example in `application.js`
-
-```js
-//= require rails_charts/echarts.min.js
-//= require rails_charts/theme/vintage.js
-```
-
-Note you can specify different themes.
-
-3) add your first chart 
-```ruby
-<%= line_chart User.group(:age).count %>
-```
-4) customize charts if needed. See available options or [official documentation](https://echarts.apache.org/examples/en/index.html). 
 
 ## Installation
 
-Add this line to your application's Gemfile:
+Add gem to your application's Gemfile:
 
 ```ruby
 gem "rails_charts"
 ```
 
-And then execute:
+Then execute:
 ```bash
-$ bundle
+$ ./bin/bundle install
 ```
+
+You can install ECharts with installation command
+
+```bash
+$ ./bin/rails rails_charts:install
+```
+
+or do it manualy
 
 ### Sprockets
 
 1) add eCharts in main JS bundle, e.g. `app/assets/javascripts/application.js`
 
 ```javascript
-//= require rails_charts/echarts.min.js
-//= require rails_charts/theme/dark.js
+//= require echarts.min.js
+//= require echarts/theme/dark.js
 ```
 
-2) start using :)
+3) add your first chart e.g.
+```ruby
+<%= line_chart User.group(:age).count %>
+```
+
+4) customize charts if needed. See available options or [official documentation](https://echarts.apache.org/examples/en/index.html). 
+
 
 ### Webpack / esbuild
 
@@ -99,31 +95,35 @@ import 'echarts/theme/dark';
 window.echarts = echarts;
 ```
 
-3) start using :)
+3) add your first chart e.g.
+```ruby
+<%= line_chart User.group(:age).count %>
+```
+
+4) customize charts if needed. See available options or [official documentation](https://echarts.apache.org/examples/en/index.html). 
 
 ### Importmaps
 
 1) change `config/importmap.rb`
 
 ```ruby
-pin "rails_charts/echarts.min.js", to: "rails_charts/echarts.min.js", preload: true
-pin "rails_charts/theme/dark.js", to: "rails_charts/theme/dark.js", preload: true
+pin "echarts", to: "echarts.min.js"
+pin "echarts/theme/dark", to: "echarts/theme/dark.js"
 ```
 
-2) change manifest `app/assets/config/manifest.js`
+2) add eCharts in main JS 
 
 ```javascript
-//= link rails_charts/echarts.min.js
-//= link rails_charts/theme/dark.js
+import "echarts"
+import "echarts/theme/dark"
 ```
 
-3) add eCharts in main JS 
-
-```javascript
-import "rails_charts/echarts.min.js"
+3) add your first chart e.g.
+```ruby
+<%= line_chart User.group(:age).count %>
 ```
 
-4) start using :)
+4) customize charts if needed. See available options or [official documentation](https://echarts.apache.org/examples/en/index.html). 
 
 ## Options
 
@@ -139,7 +139,7 @@ import "rails_charts/echarts.min.js"
 
 Available options:
 
-```
+```yaml
 width: specify width of the chart
 height: specify height of the chart
 theme: specify theme of the chart (available themes examples https://echarts.apache.org/en/download-theme.html)
@@ -159,7 +159,7 @@ If you need to format tooltip (or other javascript function as an option) you ca
 ```ruby
   options: {
     tooltip: {
-      valueFormatter: RailsCharts::Javascript.new("(value) => '$' + Math.round(value)")
+      valueFormatter: RailsCharts.js("(value) => '$' + Math.round(value)")
     }
   }
 ```
@@ -206,7 +206,7 @@ Every chart has a built in default configuration for tooltips, or other options 
       barWidth: '50%'
     },
     tooltip: {
-      valueFormatter: RailsCharts::Javascript.new("(value) => '$' + Math.round(value)")
+      valueFormatter: RailsCharts.js("(value) => '$' + Math.round(value)")
     }
   }
 %>
@@ -488,8 +488,7 @@ Every chart has a built in default configuration for tooltips, or other options 
 
 You are welcome to contributes. Some open tasks:
 
-- importmaps support?
-- webpacker support
+- support turbo streams?
 - add more specs
 - add more examples to the dummy app
 - customization, options overides, default values?
