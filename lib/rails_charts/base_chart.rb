@@ -1,5 +1,7 @@
 module RailsCharts
   class BaseChart
+    CHART_JS_PATTERN = /"RAILS_CHART_JS:(.*):RAILS_CHART_JS_END"/
+
     using RubyExt
 
     attr_reader :data, :options, :container_id, :defaults
@@ -79,9 +81,7 @@ module RailsCharts
 
     def option
       str = build_options.to_json
-      Thread.current[:rails_charts_js_code].each do |k, v|
-        str.gsub!("\"#{k}\"", v)
-      end if Thread.current[:rails_charts_js_code]
+      str.gsub!(CHART_JS_PATTERN) { Base64.decode64 $1 }
       str
     end
 

@@ -1,17 +1,13 @@
 module RailsCharts
   class Javascript
-    attr_reader :code, :record_id
+    attr_reader :code
 
     def initialize(code)
-      @code      = code
-      @record_id = Digest::SHA1.hexdigest([Time.now, rand].join)
-
-      Thread.current[:rails_charts_js_code] ||= {}
-      Thread.current[:rails_charts_js_code][record_id] = code
+      @code = code
     end
 
     def as_json(attrs)
-      record_id
+      "RAILS_CHART_JS:#{Base64.strict_encode64(code)}:RAILS_CHART_JS_END"
     end
   end
 end
