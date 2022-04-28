@@ -3,30 +3,28 @@ module RailsCharts
 
     initializer "rails_charts.importmap", before: "importmap" do |app|
       if defined?(Importmap)
-        app.config.assets.paths << File.expand_path('../..', __dir__) + "/vendor/assets"
-        app.config.assets.precompile << ".js"
-
-        app.config.assets.precompile += [
-          'vendor/assets/**/*', 
-          'vendor/assets/rails_charts/**/*'
-        ]        
-
-        app.config.importmap.cache_sweepers << Engine.root.join("vendor/assets/rails_charts")
-        app.config.importmap.cache_sweepers << Engine.root.join("vendor/assets")
+        app.config.importmap.cache_sweepers << root.join("app/assets/javascripts")
       end
     end
-    
-    initializer 'rails_charts.assets_precompile' do |app|
-      app.config.assets.paths << File.expand_path('../..', __dir__) + "/vendor/assets"
-      app.config.assets.precompile += [
-        'vendor/assets/**/*', 
-      ]
+
+    # If you don't want to precompile Echarts's assets (eg. because you're using webpack),
+    # you can do this in an intiailzer:
+    #
+    # config.after_initialize do
+    #   config.assets.precompile -= RailsCharts::Engine::PRECOMPILE_ASSETS
+    # end
+
+    PRECOMPILE_ASSETS = Dir[root.join("app/assets/javascripts/**/*")]
+    initializer 'rails_charts.assets' do |app|
+      if app.config.respond_to?(:assets)
+        app.config.assets.precompile += PRECOMPILE_ASSETS
+      end
     end
 
-    initializer 'rails_charts.helpers' do
+    initializer 'rails_charts.helpers', before: :load_config_initializers do
       ActiveSupport.on_load :action_view do
         include RailsCharts::Helpers
-      end      
+      end
     end
 
   end
