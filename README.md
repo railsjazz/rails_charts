@@ -1,5 +1,7 @@
 # Rails Charts
 
+[![RailsJazz](https://github.com/igorkasyanchuk/rails_time_travel/blob/main/docs/my_other.svg?raw=true)](https://www.railsjazz.com)
+
 ![Charts](docs/all.jpg)
 
 One more gem to build nice charts for your Ruby on Rails application.
