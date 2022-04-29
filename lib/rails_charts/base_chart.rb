@@ -4,7 +4,7 @@ module RailsCharts
 
     using RubyExt
 
-    attr_reader :data, :options, :container_id, :defaults
+    attr_reader :data, :options, :chart_id, :container_id, :defaults
     attr_reader :width, :height, :style, :klass, :theme, :locale
     attr_reader :other_options, :debug
     attr_reader :vertical
@@ -15,7 +15,8 @@ module RailsCharts
       @other_options = options.delete(:options).presence || {}
       @defaults      = RailsCharts.defaults[self.class].presence || {}
 
-      @container_id  = options.delete(:id).presence || "rails_charts_#{Digest::SHA1.hexdigest([Time.now, rand].join)}"
+      @chart_id      = "rails_charts_#{Digest::SHA1.hexdigest([Time.now, rand].join)}"
+      @container_id  = options.delete(:id).presence || @chart_id
 
       @width         = options.delete(:width).presence || RailsCharts.options[:width]
       @height        = options.delete(:height).presence || RailsCharts.options[:height]
@@ -23,7 +24,7 @@ module RailsCharts
       @locale        = options.delete(:locale).presence || RailsCharts.options[:locale]
       @klass         = options.delete(:class).presence || RailsCharts.options[:class]
       @style         = options.delete(:style).presence || RailsCharts.options[:style]
-     
+
       @debug         = options.delete(:debug)
 
       @vertical      = options.delete(:vertical).presence
@@ -43,15 +44,15 @@ module RailsCharts
               window.RailsCharts.charts = {}
             }
 
-            function init#{container_id}(e) {
+            function init_#{chart_id}(e) {
               if (document.documentElement.hasAttribute("data-turbolinks-preview")) return;
               if (document.documentElement.hasAttribute("data-turbo-preview")) return;
-    
+
               <!-- #{self.class} -->
               var chartDom = document.getElementById('#{container_id}');
 
               if (!chartDom) { return }
-  
+
               var lib = ("echarts" in window) ? window.echarts : echarts;
               var chart = lib.init(chartDom, #{theme.to_json}, { "locale": #{locale.to_json} });
               var option = #{option};
@@ -60,7 +61,7 @@ module RailsCharts
               window.RailsCharts.charts["#{container_id}"] = chart;
             }
 
-            function destroy#{container_id}(e) {
+            function destroy_#{chart_id}(e) {
               var chart = window.RailsCharts.charts["#{container_id}"];
               if (chart) {
                 chart.dispose()
@@ -68,12 +69,12 @@ module RailsCharts
               delete window.RailsCharts.charts["#{container_id}"];
             }
 
-            window.addEventListener('load', init#{container_id});
-            window.addEventListener('turbo:load', init#{container_id});
-            window.addEventListener('turbolinks:load', init#{container_id});
+            window.addEventListener('load', init_#{chart_id});
+            window.addEventListener('turbo:load', init_#{chart_id});
+            window.addEventListener('turbolinks:load', init_#{chart_id});
 
-            document.addEventListener("turbolinks:before-render", destroy#{container_id});
-            document.addEventListener("turbo:before-render", destroy#{container_id});
+            document.addEventListener("turbolinks:before-render", destroy_#{chart_id});
+            document.addEventListener("turbo:before-render", destroy_#{chart_id});
           </script>
         </div>
       }
