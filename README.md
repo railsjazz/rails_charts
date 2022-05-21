@@ -26,7 +26,7 @@ What you can build with it:
 - stacked bar chart
 - custom chart
 
-In most cases with one line of code you can have a nice chart. The idea of this gem was inspired by [Charkick](https://github.com/ankane/chartkick) gem which is great and allows you to build charts very quickly. It works best in cooperation with [groupdate](https://github.com/ankane/groupdate) gem. Unfortunatelly it's missing many needed types of charts or other customization options.
+In most cases with one line of code you can have a nice chart. The idea of this gem was inspired by [Chartkick](https://github.com/ankane/chartkick) gem which is great and allows you to build charts very quickly. It works best in cooperation with [groupdate](https://github.com/ankane/groupdate) gem. Unfortunatelly it's missing many needed types of charts or other customization options.
 
 This implementation have more options and similar "interface" for building charts.
 
