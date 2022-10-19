@@ -10,21 +10,21 @@ With it you can build various types of charts [Apache eCharts](https://echarts.a
 
 What you can build with it:
 
-- line chart
-- area chart
-- bar chart
-- donut chart
-- pie chart
-- radar chart
-- calendar chart
-- candlestick chart
-- funnel chart
-- gauge chart
-- parallel chart
-- sankey chart
-- scatter chart
-- stacked bar chart
-- custom chart
+- [area chart](#area-chart)
+- [line chart](#line-chart)
+- [bar chart](#bar-chart)
+- [donut chart](#donut-chart)
+- [pie chart](#pie-chart)
+- [radar chart](#radar-chart)
+- [calendar chart](#calendar-chart)
+- [candlestick chart](#candlestick-chart)
+- [funnel chart](#funnel-chart)
+- [gauge chart](#gauge-chart)
+- [parallel chart](#parallel-chart)
+- [sankey chart](#sankey-chart)
+- [scatter chart](#scatter-chart)
+- [stacked bar chart](#stacked-bar-chart)
+- [custom chart](#custom-chart)
 
 In most cases with one line of code you can have a nice chart. The idea of this gem was inspired by [Chartkick](https://github.com/ankane/chartkick) gem which is great and allows you to build charts very quickly. It works best in cooperation with [groupdate](https://github.com/ankane/groupdate) gem. Unfortunatelly it's missing many needed types of charts or other customization options.
 
@@ -66,7 +66,7 @@ or do it manualy
 <%= line_chart User.group(:age).count %>
 ```
 
-4) customize charts if needed. See available options or [official documentation](https://echarts.apache.org/examples/en/index.html). 
+4) customize charts if needed. See available options or [official documentation](https://echarts.apache.org/examples/en/index.html).
 
 
 ### Webpack / esbuild
@@ -102,7 +102,7 @@ window.echarts = echarts;
 <%= line_chart User.group(:age).count %>
 ```
 
-4) customize charts if needed. See available options or [official documentation](https://echarts.apache.org/examples/en/index.html). 
+4) customize charts if needed. See available options or [official documentation](https://echarts.apache.org/examples/en/index.html).
 
 ### Importmaps
 
@@ -113,7 +113,7 @@ pin "echarts", to: "echarts.min.js"
 pin "echarts/theme/dark", to: "echarts/theme/dark.js"
 ```
 
-2) add eCharts in main JS 
+2) add eCharts in main JS
 
 ```javascript
 import "echarts"
@@ -125,7 +125,7 @@ import "echarts/theme/dark"
 <%= line_chart User.group(:age).count %>
 ```
 
-4) customize charts if needed. See available options or [official documentation](https://echarts.apache.org/examples/en/index.html). 
+4) customize charts if needed. See available options or [official documentation](https://echarts.apache.org/examples/en/index.html).
 
 ## Options
 
@@ -185,7 +185,7 @@ Every chart has a built in default configuration for tooltips, or other options 
 ![Line Chart](docs/line_chart.png)
 
 ```ruby
-<%= line_chart User.group(:age).count, class: 'box', 
+<%= line_chart User.group(:age).count, class: 'box',
   options: {
     title: {
       text: "People count by age",
@@ -204,7 +204,7 @@ Every chart has a built in default configuration for tooltips, or other options 
   class: 'box',
   theme: 'sakura',
   options: {
-    series: { 
+    series: {
       barWidth: '50%'
     },
     tooltip: {
@@ -322,18 +322,18 @@ Every chart has a built in default configuration for tooltips, or other options 
 ![Donut Chart](docs/donut_chart.png)
 
 ```ruby
-<%= donut_chart User.group(:role).count, 
+<%= donut_chart User.group(:role).count,
   class: 'box',
   options: {
     legend: {
       bottom: '0'
     },
-    emphasis: { 
+    emphasis: {
       itemStyle: {
         shadowBlur: 10,
         shadowOffsetX: 0,
         shadowColor: 'rgba(0, 0, 0, 0.5)'
-      } 
+      }
     }
   }
 %>
@@ -344,7 +344,7 @@ Every chart has a built in default configuration for tooltips, or other options 
 ![Pie Chart](docs/pie_chart.png)
 
 ```ruby
-<%= pie_chart User.group(:role).count, 
+<%= pie_chart User.group(:role).count,
   class: 'box',
   options: {
     legend: { orient: 'vertical', left: 'left' }
@@ -388,12 +388,12 @@ Every chart has a built in default configuration for tooltips, or other options 
         source: 'HTML',
         target: 'Good',
         value: 1
-      },  
+      },
       {
         source: 'JS',
         target: 'Good',
         value: 1
-      },  
+      },
       {
         source: 'CSS',
         target: 'Good',
@@ -408,7 +408,7 @@ Every chart has a built in default configuration for tooltips, or other options 
         source: 'Good',
         target: 'Backend',
         value: 1
-      },         
+      },
       {
         source: 'Good',
         target: 'Frontend',
@@ -418,7 +418,7 @@ Every chart has a built in default configuration for tooltips, or other options 
         source: 'Bad',
         target: 'Backend',
         value: 1
-      },             
+      },
     ]
   }, {
     options: {
@@ -445,7 +445,7 @@ Every chart has a built in default configuration for tooltips, or other options 
       },
       yAxis: {
         name: 'Sales'
-      },          
+      },
       legend: {
         data: [
           {name: 'John'},

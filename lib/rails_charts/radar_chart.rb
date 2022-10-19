@@ -12,7 +12,7 @@ module RailsCharts
     def radar
       {
         radar: {
-          indicator: data[:indicators].map{|(k, v)| {name: k, value: v} }
+          indicator: data[:indicators].map { |(k, v)| { name: k, max: v } }
         }
       }
     end
@@ -33,6 +33,6 @@ module RailsCharts
         },
       }
     end
-  
-  end  
+
+  end
 end
