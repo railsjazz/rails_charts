@@ -1,5 +1,8 @@
 - master
   ...
 
+- 0.0.4
+  - fix for radar chart https://github.com/railsjazz/rails_charts/pull/8
+
 - 0.0.3
   - fixed function naming if it contains invalid JS symbols https://github.com/railsjazz/rails_charts/pull/5
