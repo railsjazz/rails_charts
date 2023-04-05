@@ -1,6 +1,6 @@
 module RailsCharts
   class BaseChart
-    CHART_JS_PATTERN = /"RAILS_CHART_JS:(.*):RAILS_CHART_JS_END"/
+    CHART_JS_PATTERN = /"RAILS_CHART_JS:((?!RAILS_CHART_JS:).*?):RAILS_CHART_JS_END"/
 
     using RubyExt
 
