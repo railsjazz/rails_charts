@@ -1,6 +1,9 @@
 - master
   ...
 
+- 0.0.5
+  - fix CHART_JS_PATTERN to allow having multiple functions for one chart https://github.com/railsjazz/rails_charts/pull/11
+
 - 0.0.4
   - fix for radar chart https://github.com/railsjazz/rails_charts/pull/8
 
