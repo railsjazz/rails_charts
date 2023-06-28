@@ -168,6 +168,29 @@ If you need to format tooltip (or other javascript function as an option) you ca
   }
 ```
 
+### Responisve Charts
+For responsive charts you have to add e.g. `application.js` and set the `width: 100%`:
+```javascript
+let eChartTriggerList = document.querySelectorAll('[id^="rails_charts_"]')
+window.addEventListener('resize', function() {
+  let eChartList = [...eChartTriggerList].map(eChartTriggerEl => echarts.init(eChartTriggerEl).resize())
+});
+```
+```ruby
+<%= line_chart data, { width: '100%' } %>
+```
+
+### Other Language than English
+1) Import needed language e.g. for German add:
+```javascript
+import 'echarts/i18n/langDE';
+```
+
+2) Add Language as Chart Option e.g. in LineChart
+```ruby
+<%= line_chart data, { locale: 'DE' } %>
+```
+
 ## Charts
 
 All examples available in https://github.com/railsjazz/rails_charts/tree/main/test/dummy/app/views/home. You can see more examples if you clone this repo and start a dummy app.
