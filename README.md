@@ -513,6 +513,9 @@ You are welcome to contributes. Some open tasks:
 
 `rspec` - to run specs.
 
+[<img src="https://opensource-heroes.com/svg/embed/railsjazz/rails_charts"
+/>](https://opensource-heroes.com/r/railsjazz/rails_charts)
+
 ## License
 
 The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
