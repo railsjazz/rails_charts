@@ -4,7 +4,7 @@ module RailsCharts
     def defaults
       super.deep_merge({
         series: {
-          stack: {}        
+          stack: 'stack',
         },
       })
     end
