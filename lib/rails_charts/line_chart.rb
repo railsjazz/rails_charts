@@ -38,11 +38,12 @@ module RailsCharts
           type: type,
         }
       when Hash
-        data.map do |e| 
+        data.map do |e|
           {
             data: e[:data].is_a?(Hash) ? e[:data].values : e[:data],
             type: type,
-            name: e[:name]
+            name: e[:name],
+            yAxisIndex: e[:yAxisIndex]? e[:yAxisIndex] : 0,
           }
         end
       end
