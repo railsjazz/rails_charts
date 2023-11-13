@@ -57,6 +57,9 @@ module RailsCharts
     end
 
     def y_axis
+      if self.options[:yAxis]
+        return self.options[:yAxis]
+      end
       {
         type: 'value',
       }
