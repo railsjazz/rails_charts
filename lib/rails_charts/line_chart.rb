@@ -44,6 +44,7 @@ module RailsCharts
             type: type,
             name: e[:name],
             yAxisIndex: e[:yAxisIndex]? e[:yAxisIndex] : 0,
+            stack: e[:stack].presence || nil,
           }
         end
       end
@@ -57,8 +58,8 @@ module RailsCharts
     end
 
     def y_axis
-      if self.options[:yAxis]
-        return self.options[:yAxis]
+      if options[:yAxis]
+        return options[:yAxis]
       end
       {
         type: 'value',
@@ -72,11 +73,22 @@ module RailsCharts
         },
         toolbox: {
           feature: {
-            saveAsImage: {}
+            saveAsImage: {show: false}
           },
         }
       }
     end
 
+    def legend_options
+      legend_options = if options[:legend].present?
+        options[:legend]
+      else
+        {
+          bottom: 0,
+          padding: 0,
+        }
+      end
+      { legend: legend_options }
+      end
   end
 end

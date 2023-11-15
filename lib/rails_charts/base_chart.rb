@@ -92,6 +92,7 @@ module RailsCharts
       hash[:series] = Array.wrap(generate_series_options)
 
       hash = hash.complex_merge(axises)
+      hash = hash.complex_merge(legend_options)
       hash = hash.complex_merge(defaults)
       hash = hash.complex_merge(other_options)
 
@@ -118,6 +119,10 @@ module RailsCharts
 
     def y_axis
       []
+    end
+
+    def legend_options
+      {}
     end
 
   end
