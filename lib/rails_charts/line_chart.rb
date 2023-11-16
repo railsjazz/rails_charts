@@ -45,6 +45,8 @@ module RailsCharts
             name: e[:name],
             yAxisIndex: e[:yAxisIndex]? e[:yAxisIndex] : 0,
             stack: e[:stack].presence || nil,
+            areaStyle: e[:areaStyle].presence || nil,
+            emphasis: e[:emphasis].presence || nil,
           }
         end
       end
