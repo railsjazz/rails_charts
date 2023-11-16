@@ -89,6 +89,23 @@ module RailsCharts
         }
       end
       { legend: legend_options }
+    end
+
+    def areaStyle
+      if options[:areaStyle].present?
+        options[:areaStyle]
+      else
+        {}
       end
+    end
+
+    def emphasis
+      if options[:emphasis].present?
+        options[:emphasis]
+      else
+        {}
+      end
+    end
+
   end
 end

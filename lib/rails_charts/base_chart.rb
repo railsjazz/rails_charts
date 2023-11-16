@@ -95,6 +95,8 @@ module RailsCharts
       hash = hash.complex_merge(legend_options)
       hash = hash.complex_merge(defaults)
       hash = hash.complex_merge(other_options)
+      hash = hash.complex_merge(areaStyle) if areaStyle.present?
+      hash = hash.complex_merge(emphasis) if emphasis.present?
 
       hash
     end
