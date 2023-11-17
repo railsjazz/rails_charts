@@ -5,7 +5,7 @@ module RailsCharts
     using RubyExt
 
     attr_reader :data, :options, :chart_id, :container_id, :defaults
-    attr_reader :width, :height, :style, :klass, :theme, :locale
+    attr_reader :width, :height, :style, :klass, :theme, :locale, :renderer
     attr_reader :other_options, :debug
     attr_reader :vertical
 
@@ -22,6 +22,7 @@ module RailsCharts
       @height        = options.delete(:height).presence || RailsCharts.options[:height]
       @theme         = options.delete(:theme).presence || RailsCharts.options[:theme]
       @locale        = options.delete(:locale).presence || RailsCharts.options[:locale]
+      @renderer      = options.delete(:renderer).presence || RailsCharts.options[:renderer] || "canvas"
       @klass         = options.delete(:class).presence || RailsCharts.options[:class]
       @style         = options.delete(:style).presence || RailsCharts.options[:style]
 
@@ -54,7 +55,7 @@ module RailsCharts
               if (!chartDom) { return }
 
               var lib = ("echarts" in window) ? window.echarts : echarts;
-              var chart = lib.init(chartDom, #{theme.to_json}, { "locale": #{locale.to_json} });
+              var chart = lib.init(chartDom, #{theme.to_json}, { "locale": #{locale.to_json}, "renderer": #{renderer.to_json} });
               var option = #{option};
               option && chart.setOption(option);
 
