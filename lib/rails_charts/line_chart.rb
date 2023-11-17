@@ -45,7 +45,7 @@ module RailsCharts
             name: e[:name],
             yAxisIndex: e[:yAxisIndex]? e[:yAxisIndex] : 0,
             stack: e[:stack].presence || nil,
-            areaStyle: e[:areaStyle].presence || nil,
+            areaStyle: e[:areaStyle] == {} ? {} : nil,
             emphasis: e[:emphasis].presence || nil,
           }
         end
@@ -91,22 +91,6 @@ module RailsCharts
         }
       end
       { legend: legend_options }
-    end
-
-    def areaStyle
-      if options[:areaStyle].present?
-        options[:areaStyle]
-      else
-        {}
-      end
-    end
-
-    def emphasis
-      if options[:emphasis].present?
-        options[:emphasis]
-      else
-        {}
-      end
     end
 
   end
