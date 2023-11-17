@@ -79,3 +79,51 @@
     }
   }
 %>
+
+<h2 class="subtitle">line_chart #4</h2>
+<%= line_chart User.group(:age).count, class: 'box', 
+  code: false,
+  renderer: 'svg',
+  options: {
+    title: {
+      text: "People count by age v2 (renderer svg)",
+      left: 'center'
+    },
+    xAxis: {
+      boundaryGap: false,
+    },
+    yAxis: {
+      type: 'value',
+      boundaryGap: [0, '100%']
+    },
+    tooltip: {
+      trigger: 'axis',
+      axisPointer: {
+        type: 'cross',
+        label: {
+          precision: 0
+        }
+      },
+    },
+    series: {
+      symbol: 'none',
+      sampling: 'lttb',
+      itemStyle: {
+        color: '#d65bca'
+      },
+      areaStyle: {
+        color: RailsCharts.js(%Q{new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+          {
+            offset: 0,
+            color: '#d65bca'
+          },
+          {
+            offset: 1,
+            color: '#00b712'
+          }
+        ])}
+        )
+      }
+    }
+  }
+%>
