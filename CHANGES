@@ -1,6 +1,10 @@
 - master
   ...
 
+- 0.0.6
+  - fix: make options for as_json optional https://github.com/railsjazz/rails_charts/pull/20/files
+  - feature: add support for render option
+
 - 0.0.5
   - fix CHART_JS_PATTERN to allow having multiple functions for one chart https://github.com/railsjazz/rails_charts/pull/11
 
