@@ -83,7 +83,7 @@ module RailsCharts
 
     def option
       str = build_options.to_json
-      str.gsub!(CHART_JS_PATTERN) { Base64.decode64 $1 }
+      str.gsub!(CHART_JS_PATTERN) { Base64.decode64($1).force_encoding(Encoding::UTF_8) }
       str
     end
 
