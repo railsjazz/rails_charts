@@ -9,7 +9,7 @@
       }
     },
     tooltip: {
-      valueFormatter: RailsCharts.js("(value) => '$' + value")
+      valueFormatter: RailsCharts.js("(value) => value + 'долларів'")
     }
   }
 %>
@@ -19,7 +19,7 @@
   class: 'box',
   theme: 'sakura',
   options: {
-    series: { 
+    series: {
       barWidth: '50%'
     },
     tooltip: {
