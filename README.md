@@ -1,8 +1,8 @@
 # Rails Charts
 
 [![RailsJazz](https://github.com/igorkasyanchuk/rails_time_travel/blob/main/docs/my_other.svg?raw=true)](https://www.railsjazz.com)
-[![Listed on OpenSource-Heroes.com](https://opensource-heroes.com/badge-v1.svg)](https://opensource-heroes.com/r/railsjazz/rails_charts)
 
+[!["Buy Me A Coffee"](https://github.com/igorkasyanchuk/get-smart/blob/main/docs/snapshot-bmc-button-small.png?raw=true)](https://buymeacoffee.com/igorkasyanchuk)
 
 ![Charts](docs/all.jpg)
 
@@ -513,9 +513,6 @@ You are welcome to contributes. Some open tasks:
 
 `rspec` - to run specs.
 
-[<img src="https://opensource-heroes.com/svg/embed/railsjazz/rails_charts"
-/>](https://opensource-heroes.com/r/railsjazz/rails_charts)
-
 ## License
 
 The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
@@ -524,3 +521,5 @@ Gem is using https://echarts.apache.org/ to build charts.
 
 [<img src="https://github.com/igorkasyanchuk/rails_time_travel/blob/main/docs/more_gems.png?raw=true"
 />](https://www.railsjazz.com/?utm_source=github&utm_medium=bottom&utm_campaign=rails_charts)
+
+[!["Buy Me A Coffee"](https://github.com/igorkasyanchuk/get-smart/blob/main/docs/snapshot-bmc-button.png?raw=true)](https://buymeacoffee.com/igorkasyanchuk)
