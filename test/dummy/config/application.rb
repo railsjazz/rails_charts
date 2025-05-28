@@ -20,3 +20,5 @@ module Dummy
     # config.eager_load_paths << Rails.root.join("extras")
   end
 end
+
+require_relative "../app/models/data.rb"

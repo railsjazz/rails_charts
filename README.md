@@ -465,8 +465,8 @@ Every chart has a built in default configuration for tooltips, or other options 
 
 ```ruby
 <%= stacked_bar_chart [
-    { name: 'high priority', data: Account.high_priority.group_by_month(:created_at, format: "%b %Y").count },
-    { name: 'low priority', data: Account.low_priority.group_by_month(:created_at, format: "%b %Y").count }
+    { name: 'high priority', data: Account.group_by_month(:created_at, format: "%b %Y").count },
+    { name: 'low priority', data: Account.group_by_month(:created_at, format: "%b %Y").count }
   ],
   {
     options: {
@@ -507,11 +507,25 @@ You are welcome to contributes. Some open tasks:
 - add support for CSP similar to https://github.com/ankane/chartkick/blob/master/lib/chartkick/helper.rb#L55
 - example of how to build multiple-chart charts
 
+### How to upgrade eCharts
+
+- download ZIP file
+- unpack it
+- replace files in `app/assets/javascripts/echarts.min.js` and other related files inside echarts folder (from root folder of unpacked ZIP file).
+
 ### Development and testing
 
 `test/dummy/bin/rails s` - to start dummy app.
 
 `rspec` - to run specs.
+
+Prepare test data:
+
+`rails c`
+
+```ruby
+Data.populate
+```
 
 ## License
 

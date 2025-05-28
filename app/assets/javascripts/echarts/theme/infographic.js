@@ -31,7 +31,7 @@
         // Browser globals
         factory({}, root.echarts);
     }
-})(window, function(exports, echarts) {
+})(this, function(exports, echarts) {
     var log = function(msg) {
         if (typeof console !== 'undefined') {
             console && console.error && console.error(msg);
@@ -76,9 +76,7 @@
 
         toolbox: {
             iconStyle: {
-                normal: {
-                    borderColor: colorPalette[0]
-                }
+                borderColor: colorPalette[0]
             }
         },
 
@@ -152,8 +150,10 @@
                 borderColor: '#fff',
                 lineStyle: {
                     width: 3
-                },
-                emphasis: {
+                }
+            },
+            emphasis: {
+                itemStyle: {
                     borderWidth: 0
                 }
             },

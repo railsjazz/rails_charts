@@ -9,7 +9,5 @@ class CreateStats < ActiveRecord::Migration[7.0]
 
       t.timestamps
     end
-
-    Stat.populate
   end
 end

@@ -31,7 +31,7 @@
         // Browser globals
         factory({}, root.echarts);
     }
-})(window, function(exports, echarts) {
+})(this, function(exports, echarts) {
     var log = function(msg) {
         if (typeof console !== 'undefined') {
             console && console.error && console.error(msg);
@@ -105,8 +105,12 @@
                 color: '#00aecd'
             },
             controlStyle: {
-                normal: { color: '#00aecd' },
-                emphasis: { color: '#00aecd' }
+                color: '#00aecd',
+            },
+            emphasis: {
+                controlStyle: {
+                  color: '#00aecd'
+                }
             }
         },
 

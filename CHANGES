@@ -1,6 +1,10 @@
 - master
   ...
 
+- 0.0.7
+  - fix stacked charts https://github.com/railsjazz/rails_charts/pull/27
+  - eCharts 5.6
+
 - 0.0.6
   - fix: make options for as_json optional https://github.com/railsjazz/rails_charts/pull/20/files
   - feature: add support for render option
