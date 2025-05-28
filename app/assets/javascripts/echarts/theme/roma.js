@@ -32,7 +32,7 @@
         // Browser globals
         factory({}, root.echarts);
     }
-})(window, function(exports, echarts) {
+})(this, function(exports, echarts) {
     var log = function(msg) {
         if (typeof console !== 'undefined') {
             console && console.error && console.error(msg);

@@ -9,7 +9,7 @@ Gem::Specification.new do |spec|
   spec.summary     = "One more solution to create charts in Ruby on Rails application"
   spec.description = "One more solution to create charts in Ruby on Rails application"
   spec.license     = "MIT"
-  
+
   spec.metadata["homepage_uri"] = spec.homepage
 
   spec.files = Dir.chdir(File.expand_path(__dir__)) do
@@ -23,7 +23,6 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "groupdate"
   spec.add_development_dependency "puma"
   spec.add_development_dependency "sprockets-rails"
-  spec.add_development_dependency "annotate"
   spec.add_development_dependency "rspec-rails"
   spec.add_development_dependency "simplecov"
 end
