@@ -74,6 +74,11 @@ module RailsCharts
             window.addEventListener('turbo:load', init_#{chart_id});
             window.addEventListener('turbolinks:load', init_#{chart_id});
 
+            window.addEventListener('turbo:frame-render', init_#{chart_id});
+            window.addEventListener('turbo:frame-load', ()=> {
+                window.removeEventListener('turbo:frame-render', init_#{chart_id});
+            });
+
             document.addEventListener("turbolinks:before-render", destroy_#{chart_id});
             document.addEventListener("turbo:before-render", destroy_#{chart_id});
           </script>
