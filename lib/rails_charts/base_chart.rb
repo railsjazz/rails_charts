@@ -60,6 +60,12 @@ module RailsCharts
               option && chart.setOption(option);
 
               window.RailsCharts.charts["#{container_id}"] = chart;
+
+              chart.on('rendered', function() {
+                document.dispatchEvent(new CustomEvent('chart:rendered', {
+                  detail: { containerId: '#{container_id}' }
+                }));
+              });
             }
 
             function destroy_#{chart_id}(e) {
