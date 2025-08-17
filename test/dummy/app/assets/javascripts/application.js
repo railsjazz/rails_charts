@@ -13,3 +13,5 @@
 //= require echarts/theme/macarons.js
 //= require echarts/i18n/langES.js
 //= require echarts/i18n/langES-obj.js
+//= require echarts/i18n/langUK.js
+//= require echarts/i18n/langUK-obj.js

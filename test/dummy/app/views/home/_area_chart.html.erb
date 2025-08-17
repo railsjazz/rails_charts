@@ -12,7 +12,7 @@
     },
     series: {
       name: "People Count"
-    }     
+    }
   }
 %>
 
@@ -37,7 +37,7 @@
     },
     series: {
       type: 'line'
-    },        
+    },
     dataZoom: [
       {
         start: 30,
@@ -56,3 +56,19 @@
     }
   }
     %>
+
+<h2 class="subtitle">area_chart #5 (with locale=UK)</h2>
+<%= area_chart DataPoint.pluck(:event_date, :value),
+  class: 'box',
+  code: false,
+  debug: false,
+  locale: 'UK',
+  options: {
+    xAxis: {
+      type: 'time'
+    },
+    series: {
+      type: 'line'
+    },
+  }
+%>
