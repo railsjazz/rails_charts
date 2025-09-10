@@ -131,7 +131,7 @@ import "echarts/theme/dark"
 
 ### Loading Themes
 
-Themes can be loaded as shown in example above. However, in some cases where
+Themes can be loaded as shown in examples above. However, in some cases where
 themes are included in environment where `this` does not point to `window`, you
 might get errors. In that case, you can use loadTheme helper to load themes by
 name. For example, instead of
