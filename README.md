@@ -129,6 +129,27 @@ import "echarts/theme/dark"
 
 4) customize charts if needed. See available options or [official documentation](https://echarts.apache.org/examples/en/index.html).
 
+### Loading Themes
+
+Themes can be loaded as shown in example enough. However, in some cases where
+themes are included in environment where `this` does not point to window, you
+might get errors. In that case, you can use loadTheme helper to load themes by
+name. For example, instead of
+
+```javascript
+import 'echarts/theme/dark'
+```
+you can do
+
+```javascript
+// application.js
+import "echarts"
+import "echarts.themeloader"
+
+// Load the desired theme dynamically
+RailsCharts.loadTheme('dark');
+```
+
 ## Options
 
 ```ruby
