@@ -1,5 +1,8 @@
 - master
-  ...
+
+- 0.0.9
+  - https://github.com/railsjazz/rails_charts/pull/30
+  - https://github.com/railsjazz/rails_charts/pull/37
 
 - 0.0.8
   - JS event when chart was rendered https://github.com/railsjazz/rails_charts/pull/31
