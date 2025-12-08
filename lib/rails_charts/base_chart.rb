@@ -55,6 +55,9 @@ module RailsCharts
               if (!chartDom) { return }
 
               var lib = ("echarts" in window) ? window.echarts : echarts;
+
+              if (lib.getInstanceByDom(chartDom)) { return }
+
               var chart = lib.init(chartDom, #{theme.to_json}, { "locale": #{locale.to_json}, "renderer": #{renderer.to_json} });
               var option = #{option};
               option && chart.setOption(option);
