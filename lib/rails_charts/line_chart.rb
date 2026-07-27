@@ -14,7 +14,7 @@ module RailsCharts
       when Array
         data.map{|e| e[0]}
       when Hash
-        data.map{|e| e[:data].keys}.flatten
+        data.flat_map { |series| keyed_series_data(series).keys }
       else
         nil
       end&.uniq
@@ -38,12 +38,11 @@ module RailsCharts
           type: type,
         }
       when Hash
-        data.map do |e| 
-          {
-            data: e[:data].is_a?(Hash) ? e[:data].values : e[:data],
+        data.map do |e|
+          e.except(:data, :type).merge(
+            data: series_values(e),
             type: type,
-            name: e[:name]
-          }
+          )
         end
       end
     end
@@ -72,6 +71,19 @@ module RailsCharts
           },
         }
       }
+    end
+
+    private
+
+    def series_values(series)
+      return series[:data] if is_a?(ScatterChart)
+
+      values_by_category = keyed_series_data(series)
+      x.map { |category| values_by_category[category] }
+    end
+
+    def keyed_series_data(series)
+      series[:data].is_a?(Hash) ? series[:data] : series[:data].to_h
     end
 
   end
