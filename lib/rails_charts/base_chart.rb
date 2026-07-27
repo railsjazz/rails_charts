@@ -40,53 +40,82 @@ module RailsCharts
       %Q{
         <div id="#{container_id}" class="#{klass}" style="#{style_css.compact.join('; ')}">
           <script>
-            if (!window.RailsCharts) {
-              window.RailsCharts = {}
-              window.RailsCharts.charts = {}
-            }
+            (function() {
+              window.RailsCharts = window.RailsCharts || {};
+              window.RailsCharts.charts = window.RailsCharts.charts || {};
+              window.RailsCharts.listenerControllers = window.RailsCharts.listenerControllers || {};
 
-            function init_#{chart_id}(e) {
-              if (document.documentElement.hasAttribute("data-turbolinks-preview")) return;
-              if (document.documentElement.hasAttribute("data-turbo-preview")) return;
+              var containerId = '#{container_id}';
+              var previousListenerController = window.RailsCharts.listenerControllers[containerId];
+              previousListenerController && previousListenerController.abort();
 
-              <!-- #{self.class} -->
-              var chartDom = document.getElementById('#{container_id}');
+              var listenerController = new AbortController();
+              var listenerOptions = { signal: listenerController.signal };
+              window.RailsCharts.listenerControllers[containerId] = listenerController;
 
-              if (!chartDom) { return }
-
-              var lib = ("echarts" in window) ? window.echarts : echarts;
-              var chart = lib.init(chartDom, #{theme.to_json}, { "locale": #{locale.to_json}, "renderer": #{renderer.to_json} });
-              var option = #{option};
-              option && chart.setOption(option);
-
-              window.RailsCharts.charts["#{container_id}"] = chart;
-
-              chart.on('rendered', function() {
-                document.dispatchEvent(new CustomEvent('chart:rendered', {
-                  detail: { containerId: '#{container_id}' }
-                }));
-              });
-            }
-
-            function destroy_#{chart_id}(e) {
-              var chart = window.RailsCharts.charts["#{container_id}"];
-              if (chart) {
-                chart.dispose()
+              function chartLibrary() {
+                if ("echarts" in window) return window.echarts;
+                if (typeof echarts !== "undefined") return echarts;
               }
-              delete window.RailsCharts.charts["#{container_id}"];
-            }
 
-            window.addEventListener('load', init_#{chart_id});
-            window.addEventListener('turbo:load', init_#{chart_id});
-            window.addEventListener('turbolinks:load', init_#{chart_id});
+              function init() {
+                if (document.documentElement.hasAttribute("data-turbolinks-preview")) return;
+                if (document.documentElement.hasAttribute("data-turbo-preview")) return;
 
-            window.addEventListener('turbo:frame-render', init_#{chart_id});
-            window.addEventListener('turbo:frame-load', ()=> {
-                window.removeEventListener('turbo:frame-render', init_#{chart_id});
-            });
+                var chartDom = document.getElementById(containerId);
+                var lib = chartLibrary();
+                if (!chartDom || !lib) return;
 
-            document.addEventListener("turbolinks:before-render", destroy_#{chart_id});
-            document.addEventListener("turbo:before-render", destroy_#{chart_id});
+                var chart = lib.getInstanceByDom(chartDom);
+                if (!chart) {
+                  // #{self.class}
+                  chart = lib.init(chartDom, #{theme.to_json}, { "locale": #{locale.to_json}, "renderer": #{renderer.to_json} });
+                  var option = #{option};
+                  option && chart.setOption(option);
+
+                  chart.on('rendered', function() {
+                    document.dispatchEvent(new CustomEvent('chart:rendered', {
+                      detail: { containerId: containerId }
+                    }));
+                  });
+                }
+
+                window.RailsCharts.charts[containerId] = chart;
+              }
+
+              function destroy() {
+                var chartDom = document.getElementById(containerId);
+                var lib = chartLibrary();
+                var chart = window.RailsCharts.charts[containerId];
+                chart = chart || (chartDom && lib && lib.getInstanceByDom(chartDom));
+                chart && chart.dispose();
+
+                delete window.RailsCharts.charts[containerId];
+                if (window.RailsCharts.listenerControllers[containerId] === listenerController) {
+                  delete window.RailsCharts.listenerControllers[containerId];
+                }
+                listenerController.abort();
+              }
+
+              function initAfterFrameRender(event) {
+                var chartDom = document.getElementById(containerId);
+                if (chartDom && event.target.contains(chartDom)) init();
+              }
+
+              function destroyBeforeFrameRender(event) {
+                var chartDom = document.getElementById(containerId);
+                if (chartDom && event.target.contains(chartDom)) destroy();
+              }
+
+              window.addEventListener('load', init, listenerOptions);
+              window.addEventListener('turbo:load', init, listenerOptions);
+              window.addEventListener('turbolinks:load', init, listenerOptions);
+              document.addEventListener('turbo:frame-render', initAfterFrameRender, listenerOptions);
+              document.addEventListener('turbo:before-frame-render', destroyBeforeFrameRender, listenerOptions);
+              document.addEventListener('turbo:before-cache', destroy, listenerOptions);
+              document.addEventListener('turbolinks:before-render', destroy, listenerOptions);
+              document.addEventListener('turbo:before-render', destroy, listenerOptions);
+            })();
           </script>
         </div>
       }

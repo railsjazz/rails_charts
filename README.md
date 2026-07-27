@@ -540,6 +540,8 @@ You are welcome to contributes. Some open tasks:
 
 `rspec` - to run specs.
 
+`node spec/javascript/base_chart_lifecycle_test.mjs` - to verify chart initialization and cleanup across Turbo lifecycle events.
+
 Prepare test data:
 
 `rails c`
