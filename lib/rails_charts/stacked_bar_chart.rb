@@ -1,12 +1,12 @@
 module RailsCharts
   class StackedBarChart < BarChart
 
-    def defaults
-      super.deep_merge({
-        series: {
-          stack: 'stack',
-        },
-      })
+    private
+
+    def series_defaults
+      {
+        stack: 'stack',
+      }
     end
   
   end
