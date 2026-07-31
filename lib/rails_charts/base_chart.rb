@@ -38,98 +38,117 @@ module RailsCharts
       style_css << style
 
       %Q{
-        <div id="#{container_id}" class="#{klass}" style="#{style_css.compact.join('; ')}">
-          <script>
-            (function() {
-              window.RailsCharts = window.RailsCharts || {};
-              window.RailsCharts.charts = window.RailsCharts.charts || {};
-              window.RailsCharts.listenerControllers = window.RailsCharts.listenerControllers || {};
+        <div id="#{container_id}" class="#{klass}" style="#{style_css.compact.join('; ')}"></div>
+        <script>
+          (function() {
+            window.RailsCharts = window.RailsCharts || {};
+            window.RailsCharts.charts = window.RailsCharts.charts || {};
+            window.RailsCharts.listenerControllers = window.RailsCharts.listenerControllers || {};
 
-              var containerId = '#{container_id}';
-              var previousListenerController = window.RailsCharts.listenerControllers[containerId];
-              previousListenerController && previousListenerController.abort();
+            var containerId = '#{container_id}';
+            var previousListenerController = window.RailsCharts.listenerControllers[containerId];
+            previousListenerController && previousListenerController.abort();
 
-              var listeners = [];
-              var listenerController = {
-                abort: function() {
-                  while (listeners.length) {
-                    var listener = listeners.pop();
-                    listener[0].removeEventListener(listener[1], listener[2]);
-                  }
+            var listeners = [];
+            var chartDom;
+            var listenerController = {
+              abort: function() {
+                while (listeners.length) {
+                  var listener = listeners.pop();
+                  listener[0].removeEventListener(listener[1], listener[2]);
                 }
-              };
-              window.RailsCharts.listenerControllers[containerId] = listenerController;
+              }
+            };
+            window.RailsCharts.listenerControllers[containerId] = listenerController;
 
-              function listen(target, eventName, callback) {
-                target.addEventListener(eventName, callback);
-                listeners.push([target, eventName, callback]);
+            function listen(target, eventName, callback) {
+              target.addEventListener(eventName, callback);
+              listeners.push([target, eventName, callback]);
+            }
+
+            function chartLibrary() {
+              if ("echarts" in window) return window.echarts;
+              if (typeof echarts !== "undefined") return echarts;
+            }
+
+            function init() {
+              if (document.documentElement.hasAttribute("data-turbolinks-preview")) return;
+              if (document.documentElement.hasAttribute("data-turbo-preview")) return;
+
+              chartDom = document.getElementById(containerId);
+              var lib = chartLibrary();
+              if (!chartDom || !lib) return;
+
+              var chart = lib.getInstanceByDom(chartDom);
+              if (!chart) {
+                // #{self.class}
+                chart = lib.init(chartDom, #{theme.to_json}, { "locale": #{locale.to_json}, "renderer": #{renderer.to_json} });
+                var option = #{option};
+                option && chart.setOption(option);
+
+                chart.on('rendered', function() {
+                  document.dispatchEvent(new CustomEvent('chart:rendered', {
+                    detail: { containerId: containerId }
+                  }));
+                });
               }
 
-              function chartLibrary() {
-                if ("echarts" in window) return window.echarts;
-                if (typeof echarts !== "undefined") return echarts;
+              window.RailsCharts.charts[containerId] = chart;
+            }
+
+            function disposeChart() {
+              var ownedChartDom = chartDom || document.getElementById(containerId);
+              var lib = chartLibrary();
+              var chart = window.RailsCharts.charts[containerId];
+              chart = chart || (ownedChartDom && lib && lib.getInstanceByDom(ownedChartDom));
+              chart && chart.dispose();
+
+              delete window.RailsCharts.charts[containerId];
+            }
+
+            function retireListeners() {
+              if (window.RailsCharts.listenerControllers[containerId] === listenerController) {
+                delete window.RailsCharts.listenerControllers[containerId];
               }
+              listenerController.abort();
+            }
 
-              function init() {
-                if (document.documentElement.hasAttribute("data-turbolinks-preview")) return;
-                if (document.documentElement.hasAttribute("data-turbo-preview")) return;
+            function destroy() {
+              disposeChart();
+              retireListeners();
+            }
 
-                var chartDom = document.getElementById(containerId);
-                var lib = chartLibrary();
-                if (!chartDom || !lib) return;
-
-                var chart = lib.getInstanceByDom(chartDom);
-                if (!chart) {
-                  // #{self.class}
-                  chart = lib.init(chartDom, #{theme.to_json}, { "locale": #{locale.to_json}, "renderer": #{renderer.to_json} });
-                  var option = #{option};
-                  option && chart.setOption(option);
-
-                  chart.on('rendered', function() {
-                    document.dispatchEvent(new CustomEvent('chart:rendered', {
-                      detail: { containerId: containerId }
-                    }));
-                  });
-                }
-
-                window.RailsCharts.charts[containerId] = chart;
+            function retireListenersIfDetached() {
+              if (chartDom && !document.documentElement.contains(chartDom)) {
+                retireListeners();
+              } else if (!chartDom && !document.getElementById(containerId)) {
+                retireListeners();
               }
+            }
 
-              function destroy() {
-                var chartDom = document.getElementById(containerId);
-                var lib = chartLibrary();
-                var chart = window.RailsCharts.charts[containerId];
-                chart = chart || (chartDom && lib && lib.getInstanceByDom(chartDom));
-                chart && chart.dispose();
+            function initAfterFrameRender(event) {
+              var chartDom = document.getElementById(containerId);
+              if (chartDom && event.target.contains(chartDom)) init();
+            }
 
-                delete window.RailsCharts.charts[containerId];
-                if (window.RailsCharts.listenerControllers[containerId] === listenerController) {
-                  delete window.RailsCharts.listenerControllers[containerId];
-                }
-                listenerController.abort();
-              }
+            function destroyBeforeFrameRender(event) {
+              var chartDom = document.getElementById(containerId);
+              if (chartDom && event.target.contains(chartDom)) destroy();
+            }
 
-              function initAfterFrameRender(event) {
-                var chartDom = document.getElementById(containerId);
-                if (chartDom && event.target.contains(chartDom)) init();
-              }
-
-              function destroyBeforeFrameRender(event) {
-                var chartDom = document.getElementById(containerId);
-                if (chartDom && event.target.contains(chartDom)) destroy();
-              }
-
-              listen(window, 'load', init);
-              listen(window, 'turbo:load', init);
-              listen(window, 'turbolinks:load', init);
-              listen(document, 'turbo:frame-render', initAfterFrameRender);
-              listen(document, 'turbo:before-frame-render', destroyBeforeFrameRender);
-              listen(document, 'turbo:before-cache', destroy);
-              listen(document, 'turbolinks:before-render', destroy);
-              listen(document, 'turbo:before-render', destroy);
-            })();
-          </script>
-        </div>
+            listen(window, 'load', init);
+            listen(window, 'turbo:load', init);
+            listen(window, 'turbolinks:load', init);
+            listen(document, 'turbo:frame-render', initAfterFrameRender);
+            listen(document, 'turbo:before-frame-render', destroyBeforeFrameRender);
+            listen(document, 'turbo:before-cache', disposeChart);
+            listen(document, 'turbolinks:before-cache', disposeChart);
+            listen(document, 'turbolinks:before-render', disposeChart);
+            listen(document, 'turbo:before-render', disposeChart);
+            listen(document, 'turbolinks:render', retireListenersIfDetached);
+            listen(document, 'turbo:render', retireListenersIfDetached);
+          })();
+        </script>
       }
     end
 
