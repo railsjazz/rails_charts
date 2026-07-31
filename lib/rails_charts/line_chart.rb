@@ -33,16 +33,20 @@ module RailsCharts
       # binding.pry if debug
       case data[0]
       when Array
-        {
+        series_defaults.merge(
           data: is_a?(AreaChart) || is_a?(ScatterChart) ? data : data.map(&:last),
           type: type,
-        }
+        )
       when Hash
+        categories = x
+
         data.map do |e|
-          e.except(:data, :type).merge(
-            data: series_values(e),
-            type: type,
-          )
+          series_defaults
+            .merge(e.except(:data, :type))
+            .merge(
+              data: series_values(e, categories),
+              type: type,
+            )
         end
       end
     end
@@ -75,11 +79,15 @@ module RailsCharts
 
     private
 
-    def series_values(series)
+    def series_defaults
+      {}
+    end
+
+    def series_values(series, categories)
       return series[:data] if is_a?(ScatterChart)
 
       values_by_category = keyed_series_data(series)
-      x.map { |category| values_by_category[category] }
+      categories.map { |category| values_by_category[category] }
     end
 
     def keyed_series_data(series)
