@@ -49,9 +49,21 @@ module RailsCharts
               var previousListenerController = window.RailsCharts.listenerControllers[containerId];
               previousListenerController && previousListenerController.abort();
 
-              var listenerController = new AbortController();
-              var listenerOptions = { signal: listenerController.signal };
+              var listeners = [];
+              var listenerController = {
+                abort: function() {
+                  while (listeners.length) {
+                    var listener = listeners.pop();
+                    listener[0].removeEventListener(listener[1], listener[2]);
+                  }
+                }
+              };
               window.RailsCharts.listenerControllers[containerId] = listenerController;
+
+              function listen(target, eventName, callback) {
+                target.addEventListener(eventName, callback);
+                listeners.push([target, eventName, callback]);
+              }
 
               function chartLibrary() {
                 if ("echarts" in window) return window.echarts;
@@ -107,14 +119,14 @@ module RailsCharts
                 if (chartDom && event.target.contains(chartDom)) destroy();
               }
 
-              window.addEventListener('load', init, listenerOptions);
-              window.addEventListener('turbo:load', init, listenerOptions);
-              window.addEventListener('turbolinks:load', init, listenerOptions);
-              document.addEventListener('turbo:frame-render', initAfterFrameRender, listenerOptions);
-              document.addEventListener('turbo:before-frame-render', destroyBeforeFrameRender, listenerOptions);
-              document.addEventListener('turbo:before-cache', destroy, listenerOptions);
-              document.addEventListener('turbolinks:before-render', destroy, listenerOptions);
-              document.addEventListener('turbo:before-render', destroy, listenerOptions);
+              listen(window, 'load', init);
+              listen(window, 'turbo:load', init);
+              listen(window, 'turbolinks:load', init);
+              listen(document, 'turbo:frame-render', initAfterFrameRender);
+              listen(document, 'turbo:before-frame-render', destroyBeforeFrameRender);
+              listen(document, 'turbo:before-cache', destroy);
+              listen(document, 'turbolinks:before-render', destroy);
+              listen(document, 'turbo:before-render', destroy);
             })();
           </script>
         </div>

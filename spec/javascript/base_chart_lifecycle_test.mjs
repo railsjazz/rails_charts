@@ -21,16 +21,10 @@ class FakeEventTarget {
     this.listeners = new Map();
   }
 
-  addEventListener(name, callback, options = {}) {
+  addEventListener(name, callback) {
     const listeners = this.listeners.get(name) || new Set();
     listeners.add(callback);
     this.listeners.set(name, listeners);
-
-    options.signal?.addEventListener(
-      'abort',
-      () => this.removeEventListener(name, callback),
-      { once: true },
-    );
   }
 
   removeEventListener(name, callback) {
@@ -81,12 +75,13 @@ browserWindow.echarts = {
 
 globalThis.window = browserWindow;
 globalThis.document = browserDocument;
+globalThis.AbortController = undefined;
 
 const evaluateGeneratedScript = () => vm.runInThisContext(script);
 
 evaluateGeneratedScript();
 browserWindow.dispatch('load');
-assert.equal(initializationCount, 1, 'the first load initializes the chart');
+assert.equal(initializationCount, 1, 'the first load initializes without AbortController');
 
 browserWindow.dispatch('turbo:load');
 assert.equal(initializationCount, 1, 'later load events reuse the existing chart instance');
