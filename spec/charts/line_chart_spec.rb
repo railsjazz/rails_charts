@@ -48,6 +48,57 @@ describe RailsCharts::LineChart do
     end
   end
 
+  describe '#build_options' do
+    subject(:options) { described_class.new(data).build_options }
+
+    context 'with ECharts options on individual series' do
+      let(:data) do
+        [
+          {
+            name: 'Required',
+            data: { 'Monday' => 1, 'Tuesday' => 2 },
+            type: 'bar',
+            color: '#991b1b',
+            lineStyle: { width: 6 }
+          }
+        ]
+      end
+
+      it 'preserves the options while keeping the chart type authoritative' do
+        expect(options.fetch(:series)).to eq(
+          [
+            {
+              name: 'Required',
+              data: [1, 2],
+              type: 'line',
+              color: '#991b1b',
+              lineStyle: { width: 6 }
+            }
+          ]
+        )
+      end
+    end
+
+    context 'with key-value arrays on individual series' do
+      let(:data) do
+        [
+          { name: 'Regular', data: [['Monday', 8], ['Wednesday', 6]] },
+          { name: 'Overtime', data: [['Tuesday', 2], ['Wednesday', 1]] }
+        ]
+      end
+
+      it 'aligns each series to the shared categories' do
+        expect(options.dig(:xAxis, :data)).to eq(['Monday', 'Wednesday', 'Tuesday'])
+        expect(options.fetch(:series)).to eq(
+          [
+            { name: 'Regular', data: [8, 6, nil], type: 'line' },
+            { name: 'Overtime', data: [nil, 1, 2], type: 'line' }
+          ]
+        )
+      end
+    end
+  end
+
   describe "#line_chart with JS formatter" do
     it "build_options" do
       data = {10 => 42, 20 => 4242}

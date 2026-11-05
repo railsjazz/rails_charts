@@ -9,10 +9,6 @@ module RailsCharts
         xAxis: {
           boundaryGap: false
         },
-        series: {
-          areaStyle: {},
-          stack: 'Total'
-        },
         toolbox: {
           feature: {
             saveAsImage: {}
@@ -22,10 +18,21 @@ module RailsCharts
     end
 
     def x_axis
+      return super if data[0].is_a?(Hash)
+
       {
         type: 'category'
       }
-    end    
+    end
+
+    private
+
+    def series_defaults
+      {
+        areaStyle: {},
+        stack: 'Total'
+      }
+    end
 
   end
 end

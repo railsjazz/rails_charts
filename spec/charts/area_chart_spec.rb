@@ -48,6 +48,51 @@ describe RailsCharts::AreaChart do
       })
     end
   end
+
+  describe "#area_chart multi-series" do
+    it "preserves per-series defaults, overrides, and category alignment" do
+      chart = RailsCharts::AreaChart.new([
+        {
+          name: 'Actual',
+          data: { 'Monday' => 12, 'Tuesday' => 14 },
+          stack: 'Observed',
+          areaStyle: { opacity: 0.3 },
+          color: '#166534'
+        },
+        {
+          name: 'Required',
+          data: { 'Tuesday' => 15, 'Wednesday' => 15 },
+          lineStyle: { width: 6 }
+        }
+      ])
+
+      expect(chart.build_options).to include(
+        xAxis: {
+          type: 'category',
+          data: ['Monday', 'Tuesday', 'Wednesday'],
+          boundaryGap: false
+        },
+        series: [
+          {
+            areaStyle: { opacity: 0.3 },
+            stack: 'Observed',
+            name: 'Actual',
+            color: '#166534',
+            data: [12, 14, nil],
+            type: 'line'
+          },
+          {
+            areaStyle: {},
+            stack: 'Total',
+            name: 'Required',
+            lineStyle: { width: 6 },
+            data: [nil, 15, 15],
+            type: 'line'
+          }
+        ]
+      )
+    end
+  end
  
 
 end
